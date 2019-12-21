@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ModuleRegistry, GridApi} from '@ag-grid-community/core';
+import { AllCommunityModules, Module } from "@ag-grid-community/all-modules";
+import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
+import { HttpClient } from "@angular/common/http";
 import *  as  data from './usStates.json';
 
 @Component({
@@ -16,6 +20,12 @@ export class AppComponent implements OnInit {
 	];
 	rowData = [];
 
+	private gridApi;
+	private gridColumnApi;
+	public modules: Module[] = AllCommunityModules;
+
+	constructor(private http: HttpClient) {}
+
 	ngOnInit() {
 		console.log(this.jsonData);
 		for (let row of this.jsonData) {
@@ -29,9 +39,19 @@ export class AppComponent implements OnInit {
 		}
 	}
 
-	onGridReady(params: GridApi) {
-		// params.api.sizeColumnsToFit();
-	 }
+	onGridReady(params) {
+		this.gridApi = params.api;
+		this.gridColumnApi = params.columnApi;
+	
+		this.http
+		  .get(
+			"https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/olympicWinnersSmall.json"
+		  )
+		  .subscribe(data => {
+			// this.rowData = data;
+			console.log('from server data: ', data);
+		  });
+	  }
 
 	onStateClick(element: HTMLElement) {
 		console.log('element', element);
