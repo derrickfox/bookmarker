@@ -7,13 +7,15 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TagFilterComponent } from './tag-filter/tag-filter.component';
 import { ListComponent } from './list/list.component';
 import { ItemComponent } from './list/item/item.component';
+import { SelectedTagsComponent } from './selected-tags/selected-tags.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TagFilterComponent,
     ListComponent,
-    ItemComponent
+    ItemComponent,
+    SelectedTagsComponent
   ],
   imports: [
     BrowserModule,
