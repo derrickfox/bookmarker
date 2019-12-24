@@ -1,14 +1,17 @@
 <div class="container">
 	<div class="col-xs-12">
 		<div class="row">
-			<h1>US States</h1>
+			<h1>Bookmarker</h1>
 		</div>
 	</div>
 	<div class="col-xs-12">
 		<div class="row">
-			<ag-grid-angular style="width: 100%; height: 600px;" class="ag-theme-balham" [rowData]="rowData"
-				[columnDefs]="columnDefs" (gridReady)="onGridReady($event)">
-			</ag-grid-angular>
+			<div class="col-xs-3">
+				<app-tag-filter></app-tag-filter>
+			</div>
+			<div class="col-xs-9">
+				<app-list></app-list>
+			</div>
 		</div>
 	</div>
 </div>
