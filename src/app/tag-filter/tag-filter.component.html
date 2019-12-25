@@ -1,3 +1,10 @@
 <div class="container">
     <h3>Tag Filter</h3>
+    <div class="form-input">
+        <input>
+    </div>
+    <div class="row" *ngFor="let tag of testTags">
+        <button type="button" class="btn btn-primary">{{tag.name}}</button>
+    </div>
+
 </div>
