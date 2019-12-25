@@ -9,12 +9,20 @@ export class ItemService {
         new Item(3, 'test3', 'third description3')
     ]
 
+    addItem(item: Item) {
+        
+    }
+
     getItems() {
         return this.testItems.slice();
     }
 
     getItem(id: number) {
         return this.testItems[id];
+    }
+
+    updateItem(id: number, item: Item) {
+
     }
 
     deleteRecipe(id: number) {

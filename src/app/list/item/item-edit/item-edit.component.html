@@ -1,1 +1,30 @@
-<p>item-edit works!</p>
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-success" [disabled]="!itemForm.valid">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input formControlName="name" type="text" id="name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea formControlName="description" type="text" id="description" class="form-control" rows="6"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
