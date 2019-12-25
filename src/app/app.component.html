@@ -1,12 +1,16 @@
 <div class="container">
-	<div class="col-xs-12">
-		<div class="row">
-			<h1>Bookmarker</h1>
-		</div>
+	<div class="row">
+		<h1>Bookmarker</h1>
 	</div>
-	<div class="col-xs-12">
-		<div class="row">
-			<div class="col-xs-12">
+	<div class="row">
+		<div class="col-xs-3">
+			<app-tag-filter></app-tag-filter>
+		</div>
+		<div class="col-xs-9">
+			<div class="row">
+				<app-selected-tags></app-selected-tags>
+			</div>
+			<div class="row">
 				<router-outlet></router-outlet>
 			</div>
 		</div>

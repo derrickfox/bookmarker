@@ -1,12 +1,7 @@
-<div class="container">
-    <div class="row">
-        <app-selected-tags></app-selected-tags>
-    </div>
+<div class="col-xs-3">
     <h3>List Component</h3>
-    <div>
-        <app-item
-        *ngFor="let itemElement of items; let i = index;"
-        [item]=itemElement
-        [index]="i"></app-item>
-    </div>
+    <app-item
+    *ngFor="let itemElement of items; let i = index;"
+    [item]=itemElement
+    [index]="i"></app-item>
 </div>
