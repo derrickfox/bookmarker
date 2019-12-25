@@ -3,5 +3,10 @@
         <app-selected-tags></app-selected-tags>
     </div>
     <h3>List Component</h3>
-    <app-item></app-item>
+    <div>
+        <app-item
+        *ngFor="let itemElement of items; let i = index;"
+        [item]=itemElement
+        [index]="i"></app-item>
+    </div>
 </div>
