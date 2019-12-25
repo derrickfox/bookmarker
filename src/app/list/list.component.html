@@ -1,7 +1,8 @@
-<div class="col-xs-3">
+<div class="col-xs-4">
     <h3>List Component</h3>
     <app-item
-    *ngFor="let itemElement of items; let i = index;"
-    [item]=itemElement
-    [index]="i"></app-item>
+        *ngFor="let itemElement of items; let i = index;"
+        [item]=itemElement
+        [index]="i">
+    </app-item>
 </div>

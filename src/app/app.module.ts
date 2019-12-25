@@ -13,6 +13,7 @@ import { ItemEditComponent } from './list/item/item-edit/item-edit.component';
 import { ItemStartComponent } from './list/item/item-start/item-start.component';
 import { ItemDetailComponent } from './list/item/item-detail/item-detail.component';
 import { ItemsComponent } from './list/items/items.component';
+import { DropDownDirective } from '../shared/drop-down.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ItemsComponent } from './list/items/items.component';
     ItemEditComponent,
     ItemStartComponent,
     ItemDetailComponent,
-    ItemsComponent
+    ItemsComponent,
+    DropDownDirective
   ],
   imports: [
     BrowserModule,

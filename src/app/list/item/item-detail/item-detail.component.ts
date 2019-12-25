@@ -25,4 +25,12 @@ export class ItemDetailComponent implements OnInit {
 		);
 	}
 
+	onEditItem() {
+		this.router.navigate(['edit'], { relativeTo: this.route });
+	}
+
+	onDeleteItem() {
+		this.itemService.deleteRecipe(this.id);
+		this.router.navigate(['/items']);
+	}
 }
