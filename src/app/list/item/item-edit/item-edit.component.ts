@@ -50,14 +50,17 @@ export class ItemEditComponent implements OnInit {
 	}
 
 	private initForm() {
+		let itemId = 0;
 		let itemName = '';
 		let itemDescription = '';
 		if (this.editMode) {
 			const item = this.itemService.getItem(this.id);
+			itemId = this.id;
 			itemName = item.name;
 			itemDescription = item.description;
 		}
 		this.itemForm = new FormGroup({
+			'id': new FormControl(itemId),
 			'name': new FormControl(itemName, Validators.required),
 			'description': new FormControl(itemDescription, Validators.required)
 		});

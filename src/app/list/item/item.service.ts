@@ -1,16 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Item } from './item.model';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
+    itemsChanged = new Subject<Item[]>();
     testItems: Item[] = [
-        new Item(1, 'test0', 'first description1'),
-        new Item(2, 'test1', 'second description2'),
-        new Item(3, 'test3', 'third description3')
+        new Item(0, 'test0', 'zeroth description0'),
+        new Item(1, 'test1', 'first description1'),
+        new Item(2, 'test2', 'second description2')
     ]
 
     addItem(item: Item) {
-        
+        this.testItems.push(item);
+        this.itemsChanged.next(this.testItems.slice());
     }
 
     getItems() {
@@ -21,8 +24,9 @@ export class ItemService {
         return this.testItems[id];
     }
 
-    updateItem(id: number, item: Item) {
-
+    updateItem(id: number, newItem: Item) {
+        this.testItems[id] = newItem;
+        this.itemsChanged.next(this.testItems.slice());
     }
 
     deleteRecipe(id: number) {
