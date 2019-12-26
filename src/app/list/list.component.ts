@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../list/item/item.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../list/item/item.service';
-import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-list',
@@ -10,16 +10,26 @@ import { Subject } from 'rxjs';
 	styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-    itemsChanged = new Subject<Item[]>();
+	items: Item[];
+	subscription: Subscription;
 
-	items: Item[]
-
-	constructor(private itemService: ItemService, router: Router, route: ActivatedRoute) {
-	}
+	constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
+		this.subscription =	this.itemService.itemsChanged.subscribe(
+			(items: Item[]) => {
+				this.items = items;
+			}
+		)
 		this.items = this.itemService.getItems();
-		console.log('list.component', this.items);
+	}
+
+	onNewItem() {
+		this.router.navigate(['new'], { relativeTo: this.route })
+	}
+
+	ngOnDestroy() {
+		this.subscription.unsubscribe();
 	}
 
 }
