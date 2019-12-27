@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tag } from '../tags/tag/tag.model';
+import { TagsService } from '../tags/tagsService.service';
 
 @Component({
 	selector: 'app-tag-filter',
@@ -7,16 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagFilterComponent implements OnInit {
 
-	testTags = [
-		{ name: 'testTag1' },
-		{ name: 'testTag2' },
-		{ name: 'testTag3' }
-	]
+	testTags: Tag[]
 
-	constructor() { }
+	constructor(private tagsService: TagsService) { }
 
 	ngOnInit() {
-
+		this.testTags = this.tagsService.getTags();
 	}
 
 }
