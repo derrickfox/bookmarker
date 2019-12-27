@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../list/item/item.model';
+import { Item } from './items/item/item.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ItemService } from '../list/item/item.service';
+import { ItemService } from './items/item/item.service';
 import { Subscription } from 'rxjs';
 
 @Component({

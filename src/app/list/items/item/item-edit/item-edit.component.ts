@@ -32,7 +32,8 @@ export class ItemEditComponent implements OnInit {
 		const newItem = new Item(
 			this.itemForm.value['id'],
 			this.itemForm.value['name'],
-			this.itemForm.value['description']);
+			this.itemForm.value['description'],
+			this.itemForm.value['tags']);
 		if (this.editMode) {
 			this.itemService.updateItem(this.id, newItem);
 		} else {

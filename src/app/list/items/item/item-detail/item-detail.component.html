@@ -5,6 +5,8 @@
     <div class="">
         <h4>{{item.description}}</h4>
     </div>
+    <div *ngFor="let tag of item.tags">{{tag.name}}</div>
+    <app-tags></app-tags>
     <div appDropdown class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle">Manage Recipe <span class="caret"></span></button>
         <ul class="dropdown-menu">

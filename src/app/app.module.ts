@@ -7,13 +7,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TagFilterComponent } from './tag-filter/tag-filter.component';
 import { ListComponent } from './list/list.component';
-import { ItemComponent } from './list/item/item.component';
+import { ItemComponent } from './list/items/item/item.component';
 import { SelectedTagsComponent } from './selected-tags/selected-tags.component';
-import { ItemEditComponent } from './list/item/item-edit/item-edit.component';
-import { ItemStartComponent } from './list/item/item-start/item-start.component';
-import { ItemDetailComponent } from './list/item/item-detail/item-detail.component';
+import { ItemEditComponent } from './list/items/item/item-edit/item-edit.component';
+import { ItemStartComponent } from './list/items/item/item-start/item-start.component';
+import { ItemDetailComponent } from './list/items/item/item-detail/item-detail.component';
 import { ItemsComponent } from './list/items/items.component';
 import { DropDownDirective } from '../shared/drop-down.directive';
+import { TagComponent } from './tags/tag/tag.component';
+import { TagsComponent } from './tags/tags/tags.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { DropDownDirective } from '../shared/drop-down.directive';
     ItemStartComponent,
     ItemDetailComponent,
     ItemsComponent,
-    DropDownDirective
+    DropDownDirective,
+    TagComponent,
+    TagsComponent
   ],
   imports: [
     BrowserModule,
