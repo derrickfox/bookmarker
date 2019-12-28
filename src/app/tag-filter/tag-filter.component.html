@@ -1,9 +1,10 @@
 <div class="col-xs-3">
     <div class="form-input">
         <h3>Tag Filter</h3>
-        <input>
+        <input [(ngModel)]='searchTerm'>
+        <h5>{{searchTerm}}</h5>
     </div>
-    <div class="row" *ngFor="let tag of testTags | tagFilter">
+    <div class="row" *ngFor="let tag of testTags">
         <button type="button" class="btn btn-primary">{{tag.name}}</button>
     </div>
 </div>
