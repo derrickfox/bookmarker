@@ -11,18 +11,22 @@ import { Tag } from '../tags/tag/tag.model';
 */
 @Pipe({name: 'tagFilter'})
 export class FilterTags implements PipeTransform {
-//   transform(value: number, exponent?: number): number {
-//     return Math.pow(value, isNaN(exponent) ? 1 : exponent);
-//   }
-
     searchTerm: string
+    re = new RegExp('Dog', 'g');
 
     transform(tags: Tag[]): Tag[] {
         console.log('tags', tags);
-        let filterString = 'Filtered!';
+        let filterString = ' Filtered!';
+        let newArray = [];
         for (let tag of tags) {
-            tag.name = tag.name + filterString;
+            let temp = this.re.exec(tag.name);
+            if (temp !== null) {
+                console.log('temp ', temp);
+                let tempItem = new Tag(temp.input);
+                newArray.push(tempItem);
+            }
         }
-        return tags;
+        
+        return newArray;
     }
 }

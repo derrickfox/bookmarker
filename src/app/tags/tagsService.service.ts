@@ -5,31 +5,31 @@ import { Tag } from './tag/tag.model';
 export class TagsService {
     tags: Tag[] = [
         {
-            name: 'Tag 1'
+            name: 'A Tag 1'
         },
         {
-            name: 'Tag 2'
+            name: 'The Tag 2'
         },
         {
-            name: 'Tag 3'
+            name: 'Be Tag 3'
         },
         {
-            name: 'Dog 1'
+            name: 'Be Dog 1'
         },
         {
-            name: 'Dog 2'
+            name: 'As Dog 2'
         },
         {
-            name: 'Dog 3'
+            name: 'Next Dog 3'
         },
         {
-            name: 'Dog 4'
+            name: 'The Dog 4'
         },
         {
-            name: 'Cat 1'
+            name: 'A Cat 1'
         },
         {
-            name: 'Cat 2'
+            name: 'Be Cat 2'
         }
     ]
 
