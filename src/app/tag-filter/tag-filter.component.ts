@@ -12,7 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class TagFilterComponent implements OnInit {
 	tags: Tag[]
-	filteredTags: Tag[]
+	filteredTags: Tag[] = []
 	subscription: Subscription
 	searchTerm: string
 	constructor(private tagsService: TagsService) { }
@@ -26,13 +26,15 @@ export class TagFilterComponent implements OnInit {
 
 	onKeyUp(searchTerm: string) {
 		let reggy = new RegExp(searchTerm);
-		let rey = reggy.exec(this.tags[0].name)
-		// console.log('rey', rey);
-
-		if(rey) {
-			if (rey.length > 0) {
-				if (rey.index !== null && rey[0] !== "") {
-					console.log('rey', rey);
+		let rey = reggy.exec(this.tags[0].name);
+		for (let tag of this.tags) {
+			let tagReg = new RegExp(searchTerm);
+			let tagAfterReg = tagReg.exec(tag.name);
+			if (tagAfterReg) {
+				if (tagAfterReg[0] !== "") {
+					console.log('tagAfterReg', tagAfterReg);
+					console.log('this.filteredTags', this.filteredTags);
+					this.filteredTags.push(tag);
 				}
 			}
 		}
