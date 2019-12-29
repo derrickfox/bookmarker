@@ -1,6 +1,5 @@
 <div class="row">
     <div class="col-xs-12">
-        <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-xs-12">
                     <button type="submit" class="btn btn-success" [disabled]="!itemForm.valid">Save</button>
@@ -32,6 +31,5 @@
                 </div>
             </div>
             <app-tag *ngFor="let tag of tags"></app-tag>
-        </form>
     </div>
 </div>

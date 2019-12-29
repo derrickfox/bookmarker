@@ -1,39 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Tag } from './tag/tag.model';
+import { Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class TagsService {
+    tagsChanged = new Subject<Tag[]>()
     tags: Tag[] = [
-        {
-            name: 'A Tag 1'
-        },
-        {
-            name: 'The Tag 2'
-        },
-        {
-            name: 'Be Tag 3'
-        },
-        {
-            name: 'Be Dog 1'
-        },
-        {
-            name: 'As Dog 2'
-        },
-        {
-            name: 'Next Dog 3'
-        },
-        {
-            name: 'The Dog 4'
-        },
-        {
-            name: 'A Cat 1'
-        },
-        {
-            name: 'Be Cat 2'
-        }
+        new Tag('A Cat'),
+        new Tag('A Dog'),
+        new Tag('The Cat'),
+        new Tag('The Dog')
     ]
 
     getTags() {
-        return this.tags
+        this.tagsChanged.next(this.tags.slice());
     }
+
 }

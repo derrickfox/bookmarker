@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ItemService } from '../item.service';
 import { Item } from '../item.model';
+import { Tag } from '../../../../tags/tag/tag.model';
 
 @Component({
   selector: 'app-item-edit',
@@ -14,6 +15,7 @@ export class ItemEditComponent implements OnInit {
 	id: number;
 	editMode: boolean = false;
 	itemForm: FormGroup;
+	tags: Tag[];
 
 	constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router) { }
 
