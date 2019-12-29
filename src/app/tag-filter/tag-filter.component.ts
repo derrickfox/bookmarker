@@ -22,6 +22,7 @@ export class TagFilterComponent implements OnInit {
 			this.tags = tags
 		});
 		this.tagsService.getTags();
+		this.filteredTags = this.tags;
 	}
 
 	onKeyUp(searchTerm: string) {
