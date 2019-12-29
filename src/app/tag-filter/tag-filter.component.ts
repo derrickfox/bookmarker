@@ -21,7 +21,7 @@ export class TagFilterComponent implements OnInit {
 		this.subscription = this.tagsService.tagsChanged.subscribe(tags => {
 			this.tags = tags
 		});
-		this.tagsService.getTags();
+		this.tagsService.getAllTags();
 		this.filteredTags = this.tags;
 	}
 
@@ -40,6 +40,11 @@ export class TagFilterComponent implements OnInit {
 				}
 			}
 		}
+	}
+
+	clicked(tag: Tag) {
+		console.log('tag', tag);
+		this.tagsService.addSelectedTag(tag);
 	}
 
 	ngOnDestroy() {

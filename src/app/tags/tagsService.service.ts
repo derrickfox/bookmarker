@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class TagsService {
     tagsChanged = new Subject<Tag[]>()
+    selectedTags: Tag[] = []
+    selectedTagsChanged = new Subject<Tag[]>()
     tags: Tag[] = [
         new Tag('A Cat'),
         new Tag('A Dog'),
@@ -16,8 +18,18 @@ export class TagsService {
         new Tag('The Zebra')
     ]
 
-    getTags() {
+    getAllTags() {
         this.tagsChanged.next(this.tags.slice());
+    }
+
+    addSelectedTag(tag: Tag) {
+        this.selectedTags.push(tag);
+        this.selectedTagsChanged.next(this.selectedTags);
+        console.log('selected tags ', this.selectedTags);
+    }
+
+    getSelectedTags() {
+
     }
 
 }
