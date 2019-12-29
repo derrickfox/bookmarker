@@ -16,6 +16,7 @@ import { ItemsComponent } from './list/items/items.component';
 import { DropDownDirective } from '../shared/drop-down.directive';
 import { TagComponent } from './tags/tag/tag.component';
 import { TagsComponent } from './tags/tags/tags.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TagsComponent } from './tags/tags/tags.component';
     ItemsComponent,
     DropDownDirective,
     TagComponent,
-    TagsComponent
+    TagsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
