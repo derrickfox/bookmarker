@@ -12,6 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class TagFilterComponent implements OnInit {
 	tags: Tag[]
+	filteredTags: Tag[]
 	subscription: Subscription
 	searchTerm: string
 	constructor(private tagsService: TagsService) { }
@@ -25,10 +26,16 @@ export class TagFilterComponent implements OnInit {
 
 	onKeyUp(searchTerm: string) {
 		let reggy = new RegExp(searchTerm);
-		let reggyArray = reggy.exec('Some stupid shit');
-		console.log('reggyArray', reggyArray);
-		// let tagObject = new Tag(stuff);
-		// this.tags.push(tagObject);
+		let rey = reggy.exec(this.tags[0].name)
+		// console.log('rey', rey);
+
+		if(rey) {
+			if (rey.length > 0) {
+				if (rey.index !== null && rey[0] !== "") {
+					console.log('rey', rey);
+				}
+			}
+		}
 	}
 
 	ngOnDestroy() {
