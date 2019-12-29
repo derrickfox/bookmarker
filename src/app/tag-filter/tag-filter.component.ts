@@ -25,6 +25,7 @@ export class TagFilterComponent implements OnInit {
 	}
 
 	onKeyUp(searchTerm: string) {
+		this.filteredTags = [];
 		let reggy = new RegExp(searchTerm);
 		let rey = reggy.exec(this.tags[0].name);
 		for (let tag of this.tags) {
