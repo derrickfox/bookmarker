@@ -5,11 +5,13 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
+    searchTermSubject = new Subject<string>();
+    searchTerm: string;
     itemsChanged = new Subject<Item[]>();
     testItems: Item[] = [
-        new Item(0, 'test0', 'zeroth description0', [new Tag('Stuff'), new Tag('Other Stuff')], 'www.google.com'),
-        new Item(1, 'test1', 'first description1', [new Tag('A Cat'), new Tag('Duper')], 'www.jira.com'),
-        new Item(2, 'test2', 'second description2', [new Tag('Two'), new Tag(' More Two')], 'www.yahoo.com')
+        new Item(0, 'Zeroth Item', 'A zero is round.', [new Tag('Stuff'), new Tag('Other Stuff')], 'www.google.com'),
+        new Item(1, 'First Item', 'First is the worst.', [new Tag('A Cat'), new Tag('Duper')], 'www.jira.com'),
+        new Item(2, 'Second Item', 'Second is the best', [new Tag('Two'), new Tag(' More Two')], 'www.yahoo.com')
     ]
 
     addItem(item: Item) {
@@ -33,5 +35,10 @@ export class ItemService {
     deleteRecipe(id: number) {
         this.testItems = this.testItems.splice(id, 1);
         return this.testItems.slice();
+    }
+    
+    setSearchTerm(term: string) {
+        this.searchTerm = term;
+        this.searchTermSubject.next(this.searchTerm);
     }
 }

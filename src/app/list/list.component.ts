@@ -11,25 +11,22 @@ import { Subscription } from 'rxjs';
 })
 export class ListComponent implements OnInit {
 	items: Item[];
-	subscription: Subscription;
+	searchTerm: Subscription;
 
 	constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
-		this.subscription =	this.itemService.itemsChanged.subscribe(
+		this.itemService.itemsChanged.subscribe(
 			(items: Item[]) => {
 				this.items = items;
 			}
 		)
 		this.items = this.itemService.getItems();
+		// console.log('searchTerm from list.component', this.searchTerm);
 	}
 
 	onNewItem() {
 		this.router.navigate(['new'], { relativeTo: this.route })
-	}
-
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
 	}
 
 }

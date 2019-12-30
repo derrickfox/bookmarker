@@ -6,9 +6,11 @@ import { Subject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class TagsService {
     tagsChanged = new Subject<Tag[]>()
-    selectedTags: Tag[] = [ new Tag('test tag')]
+    selectedTags: Tag[] = []
     selectedTagsChanged = new Subject<Tag[]>()
     tags: Tag[] = []
+    searchTermChanged = new Subject<string>()
+    searchTerm: string
 
     constructor(private itemService: ItemService) {
         this.setAllTags();
@@ -38,6 +40,10 @@ export class TagsService {
 
     getSelectedTags() {
         return this.selectedTagsChanged.next(this.selectedTags);
+    }
+
+    getSearchTerm() {
+        return this.searchTermChanged.next(this.searchTerm);
     }
 
 }

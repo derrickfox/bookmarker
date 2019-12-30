@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Tag } from '../tags/tag/tag.model';
 import { TagsService } from '../tags/tagsService.service';
-import { FormGroup } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
+import { ItemService } from '../list/items/item/item.service';
+import { ListService } from '../list/list.service';
 
 @Component({
 	selector: 'app-tag-filter',
@@ -13,12 +12,11 @@ import { ThrowStmt } from '@angular/compiler';
 export class TagFilterComponent implements OnInit {
 	tags: Tag[]
 	filteredTags: Tag[] = []
-	subscription: Subscription
 	searchTerm: string
-	constructor(private tagsService: TagsService) { }
+	constructor(private tagsService: TagsService, private itemsService: ItemService, private listService: ListService) { }
 
 	ngOnInit() {
-		this.subscription = this.tagsService.tagsChanged.subscribe(tags => {
+		this.tagsService.tagsChanged.subscribe(tags => {
 			this.tags = tags
 		});
 		this.tagsService.getAllTags();
@@ -34,8 +32,6 @@ export class TagFilterComponent implements OnInit {
 			let tagAfterReg = tagReg.exec(tag.name);
 			if (tagAfterReg) {
 				if (tagAfterReg[0] !== "") {
-					console.log('tagAfterReg', tagAfterReg);
-					console.log('this.filteredTags', this.filteredTags);
 					this.filteredTags.push(tag);
 				}
 			}
@@ -43,11 +39,10 @@ export class TagFilterComponent implements OnInit {
 	}
 
 	clicked(tag: Tag) {
-		console.log('tag', tag);
 		this.tagsService.addSelectedTag(tag);
-	}
-
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
+		// this.itemsService.searchTermSubject.subscribe(term => {
+		// 	// this.itemsService.setSearchTerm(tag.name);
+		// })
+		console.log('tag-filter', this.listService.getSearchTerm())
 	}
 }
