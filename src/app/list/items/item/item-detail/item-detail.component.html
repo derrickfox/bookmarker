@@ -5,6 +5,9 @@
     <div class="">
         <h4>{{item.description}}</h4>
     </div>
+    <div>
+        <h4><a [href]=item.url>{{item.url}}</a></h4>
+    </div>
     <div *ngFor="let tag of item.tags">{{tag.name}}</div>
     <app-tags></app-tags>
     <div appDropdown class="btn-group">

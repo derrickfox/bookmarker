@@ -7,9 +7,9 @@ import { Subject } from 'rxjs';
 export class ItemService {
     itemsChanged = new Subject<Item[]>();
     testItems: Item[] = [
-        new Item(0, 'test0', 'zeroth description0', [new Tag('Stuff'), new Tag('Other Stuff')]),
-        new Item(1, 'test1', 'first description1', [new Tag('Super'), new Tag('Duper')]),
-        new Item(2, 'test2', 'second description2', [new Tag('Two'), new Tag(' More Two')])
+        new Item(0, 'test0', 'zeroth description0', [new Tag('Stuff'), new Tag('Other Stuff')], 'www.google.com'),
+        new Item(1, 'test1', 'first description1', [new Tag('A Cat'), new Tag('Duper')], 'www.jira.com'),
+        new Item(2, 'test2', 'second description2', [new Tag('Two'), new Tag(' More Two')], 'www.yahoo.com')
     ]
 
     addItem(item: Item) {

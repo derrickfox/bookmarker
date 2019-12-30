@@ -35,7 +35,8 @@ export class ItemEditComponent implements OnInit {
 			this.itemForm.value['id'],
 			this.itemForm.value['name'],
 			this.itemForm.value['description'],
-			this.itemForm.value['tags']);
+			this.itemForm.value['tags'],
+			this.itemForm.value['url']);
 		if (this.editMode) {
 			this.itemService.updateItem(this.id, newItem);
 		} else {
