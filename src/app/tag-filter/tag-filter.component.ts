@@ -30,7 +30,7 @@ export class TagFilterComponent implements OnInit {
 		this.filteredTags = [];
 		let reggy = new RegExp(searchTerm);
 		let rey = reggy.exec(this.tags[0].name);
-		for (let tag of this.tags) {
+		this.tags.map(tag => {
 			let tagReg = new RegExp(searchTerm);
 			let tagAfterReg = tagReg.exec(tag.name);
 			if (tagAfterReg) {
@@ -38,12 +38,11 @@ export class TagFilterComponent implements OnInit {
 					this.filteredTags.push(tag);
 				}
 			}
-		}
+		})
 	}
 
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);
-		// this.listService.setSearchTerm(tag.name);
 		this.listService.emitTags.next(tag);
 	}
 }

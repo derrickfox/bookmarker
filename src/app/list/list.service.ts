@@ -19,14 +19,6 @@ export class ListService {
 
     setSearchTerm(newTerm: string) {
         this.searchTerm = newTerm;
-        // this.emitTags.next(this.searchTerm);
     }
 
-    filterList(tag: Tag) {
-        let items = <Item[]>this.itemService.getItems();
-        for (let item in items) {
-            console.log('filterList -> item', item);
-        }
-        // return filteredItems;
-    }
 }

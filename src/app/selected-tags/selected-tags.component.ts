@@ -15,9 +15,9 @@ export class SelectedTagsComponent implements OnInit {
 	ngOnInit() {
 		this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
-			for (let tag of tags) {
+			tags.map(tag => {
 				this.listService.emitTags.next(tag);
-			}
+			})
 		})
 	}
 }

@@ -4,7 +4,7 @@ import { ItemService } from '../list/items/item/item.service';
 import { Subject } from 'rxjs';
 import { ListService } from '../list/list.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TagsService {
     tagsChanged = new Subject<Tag[]>()
     selectedTags: Tag[] = []
@@ -19,14 +19,13 @@ export class TagsService {
 
     setAllTags() {
         let items = this.itemService.getItems();
-        for (let item of items) {
-            for (let tag of item.tags) {
+        items.map(item => {
+            item.tags.map(tag => {
                 if (tag !== null || tag !== undefined) {
                     this.tags.push(tag);
-                    console.log('tag', tag);
                 }
-            }
-        }
+            })
+        })
     }
 
     getAllTags() {
@@ -34,7 +33,6 @@ export class TagsService {
     }
 
     addSelectedTag(tag: Tag) {
-        // this.listsService.filterList(tag);
         this.selectedTags.push(tag);
         this.selectedTagsChanged.next(this.selectedTags);
         console.log('selected tags ', this.selectedTags);

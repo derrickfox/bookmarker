@@ -32,19 +32,14 @@ export class ListComponent implements OnInit {
 				this.items = items;
 			}
 		)
-		this.listService.emitTags.subscribe(tagName => {
-			// this.items = [];
-			for (let item of this.items) {
-				for (let tag of item.tags) {
-					// console.log('item', item);
-					// console.log('tag', tag);
-					if (tag.name === tagName.name) {
-						// console.log('Found Item! ->', item);
+		this.listService.emitTags.subscribe(tagInput => {
+			this.items.map(item => {
+				item.tags.map(tag => {
+					if (tag.name === tagInput.name) {
 						this.filterdItems.push(item);
-						console.log('this.filterdItems', this.filterdItems);
 					}
-				}
-			}
+				})
+			})
 		})
 	}
 
