@@ -3,6 +3,7 @@ import { Tag } from '../tags/tag/tag.model';
 import { TagsService } from '../tags/tagsService.service';
 import { ItemService } from '../list/items/item/item.service';
 import { ListService } from '../list/list.service';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-tag-filter',
@@ -13,6 +14,8 @@ export class TagFilterComponent implements OnInit {
 	tags: Tag[]
 	filteredTags: Tag[] = []
 	searchTerm: string
+	searchTermSub = new Subject<string>()
+
 	constructor(private tagsService: TagsService, private itemsService: ItemService, private listService: ListService) { }
 
 	ngOnInit() {
@@ -40,9 +43,7 @@ export class TagFilterComponent implements OnInit {
 
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);
-		// this.itemsService.searchTermSubject.subscribe(term => {
-		// 	// this.itemsService.setSearchTerm(tag.name);
-		// })
-		console.log('tag-filter', this.listService.getSearchTerm())
+		// this.listService.setSearchTerm(tag.name);
+		this.listService.emitTags.next(tag);
 	}
 }

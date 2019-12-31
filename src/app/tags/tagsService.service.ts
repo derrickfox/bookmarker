@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Tag } from './tag/tag.model';
 import { ItemService } from '../list/items/item/item.service';
 import { Subject } from 'rxjs';
+import { ListService } from '../list/list.service';
 
 @Injectable({providedIn: 'root'})
 export class TagsService {
@@ -12,7 +13,7 @@ export class TagsService {
     searchTermChanged = new Subject<string>()
     searchTerm: string
 
-    constructor(private itemService: ItemService) {
+    constructor(private itemService: ItemService, private listsService: ListService) {
         this.setAllTags();
     }
 
@@ -33,6 +34,7 @@ export class TagsService {
     }
 
     addSelectedTag(tag: Tag) {
+        // this.listsService.filterList(tag);
         this.selectedTags.push(tag);
         this.selectedTagsChanged.next(this.selectedTags);
         console.log('selected tags ', this.selectedTags);
