@@ -18,6 +18,7 @@ import { TagComponent } from './tags/tag/tag.component';
 import { TagsComponent } from './tags/tags/tags.component';
 import { HeaderComponent } from './header/header.component';
 import { ListFilterDirective } from './list/list-filter.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ListFilterDirective } from './list/list-filter.directive';
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })
