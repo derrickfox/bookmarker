@@ -18,6 +18,8 @@ import { TagComponent } from './tags/tag/tag.component';
 import { TagsComponent } from './tags/tags/tags.component';
 import { HeaderComponent } from './header/header.component';
 import { ListFilterDirective } from './list/list-filter.directive';
+import { TagDetailsComponent } from './tags/tag-details/tag-details.component';
+import { TagEditComponent } from './tags/tag-edit/tag-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -34,6 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DropDownDirective,
     TagComponent,
     TagsComponent,
+    TagDetailsComponent,
+    TagEditComponent,
     HeaderComponent,
     ListFilterDirective
   ],
