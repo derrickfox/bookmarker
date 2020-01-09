@@ -18,3 +18,7 @@
 .row {
     border: 2px solid brown;
 }
+
+#filter {
+    background-color: #061E33;
+}
