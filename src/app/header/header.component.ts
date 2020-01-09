@@ -7,7 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   animations: [
     trigger('rotatedState', [
       state('default', style({ transform: 'rotate(0)' })),
-      state('rotated', style({ transform: 'rotate(-360deg)' })),
+      state('rotated', style({ transform: 'rotate(-180deg)' })),
       transition('rotated => default', animate('2000ms ease-out')),
       transition('default => rotated', animate('2000ms ease-in'))
     ])]

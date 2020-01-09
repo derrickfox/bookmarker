@@ -1,3 +1,8 @@
+.container {
+    border: 2px blue solid;
+    width: 100%;
+}
+
 .test-container {
     height: 100%;
     display: flex;
@@ -11,5 +16,5 @@
 }
 
 .row {
-    border: 2px solid black;
+    border: 2px solid brown;
 }
