@@ -2,3 +2,19 @@
     color: white;
 }
 
+div.row {
+    padding: 4px;    
+}
+
+div.row:hover {
+    margin-left: 5px;
+    -moz-transform: translate(-2px, -2px);
+    -ms-transform: translate(-2px, -2px);
+    -o-transform: translate(-2px, -2px);
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px)
+}
+
+button:hover {
+    background-color: blueviolet;
+}
