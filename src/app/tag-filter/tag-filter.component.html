@@ -1,3 +1,16 @@
-<div class="container">
-    <h3>Tag Filter</h3>
+<h3 id="headerTitle">Tag Filter</h3>
+<div style="border-radius: 25px;">
+    <input style="float: left; border-radius: 25px;" [(ngModel)]="searchTerm" (keyup)="onKeyUp(searchTerm)">
+</div>
+<br>
+<hr>
+<div class="col-xs-4">
+    <div class="row" *ngFor="let tag of filteredTags">
+        <button 
+            (click)="clicked(tag)" 
+            type="button" 
+            class="btn btn-info"
+            >{{tag.name}}
+        </button>
+    </div>
 </div>

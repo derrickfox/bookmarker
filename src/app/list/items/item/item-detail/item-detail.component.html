@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="">
+        <h2>{{item.name}}</h2>
+    </div>
+    <div class="">
+        <h4>{{item.description}}</h4>
+    </div>
+    <div>
+        <h4><a [href]=item.url>{{item.url}}</a></h4>
+    </div>
+    <div class="row" style="margin-left: 2px;">
+        <button type="button" class="btn btn-info selected-tag" *ngFor="let tag of item.tags">{{tag.name}}</button>
+    </div>
+    <hr><br>
+    <app-tags></app-tags>
+    <div appDropdown class="btn-group">
+        <button type="button" class="btn btn-warning dropdown-toggle">Manage Recipe <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a (click)="onEditItem()" [routerLink]="['/routePath']" style="cursor: pointer;">Edit Recipe</a></li>
+            <li><a (click)="onDeleteItem()" [routerLink]="['/routePath']" style="cursor: pointer;">Delete Recipe</a>
+            </li>
+        </ul>
+    </div>
+</div>

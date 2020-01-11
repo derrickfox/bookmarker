@@ -1,16 +1,19 @@
+<!-- <app-header></app-header> -->
+
 <div class="container">
-	<div class="col-xs-12">
-		<div class="row">
-			<h1>Bookmarker</h1>
+	<div class="row">
+		<div style="right: 0; position: absolute; z-index: 1000;">
+			<button class="btn btn-primary" style="border-radius: 25px;">Sign In</button>
 		</div>
-	</div>
-	<div class="col-xs-12">
-		<div class="row">
-			<div class="col-xs-3">
-				<app-tag-filter></app-tag-filter>
+		<div class="col-xs-3" id="filter">
+			<app-tag-filter></app-tag-filter>
+		</div>
+		<div class="col-xs-9" style="border: 2px solid red; padding-left: 15px;">
+			<div class="row">
+				<app-selected-tags></app-selected-tags>
 			</div>
-			<div class="col-xs-9">
-				<app-list></app-list>
+			<div class="row">
+				<router-outlet></router-outlet>
 			</div>
 		</div>
 	</div>

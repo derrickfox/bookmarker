@@ -1,7 +1,14 @@
-<div class="container">
-    <div class="row">
-        <app-selected-tags></app-selected-tags>
-    </div>
-    <h3>List Component</h3>
-    <app-item></app-item>
+<div *ngIf="filterdItems.length === 0" class="col-xs-4">
+    <app-item
+        *ngFor="let itemElement of items; let i = index;"
+        [item]=itemElement
+        [index]="i">
+    </app-item>
+</div>
+<div *ngIf="filterdItems.length > 0" class="col-xs-4">
+    <app-item
+        *ngFor="let itemElement of filterdItems; let i = index;"
+        [item]=itemElement
+        [index]="i">
+    </app-item>
 </div>
