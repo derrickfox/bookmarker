@@ -32,7 +32,7 @@ export class ItemService {
         this.itemsChanged.next(this.testItems.slice());
     }
 
-    deleteRecipe(id: number) {
+    deleteBookmark(id: number) {
         this.testItems = this.testItems.splice(id, 1);
         return this.testItems.slice();
     }

@@ -30,7 +30,7 @@ export class ItemDetailComponent implements OnInit {
 	}
 
 	onDeleteItem() {
-		this.itemService.deleteRecipe(this.id);
+		this.itemService.deleteBookmark(this.id);
 		this.router.navigate(['/items']);
 	}
 }
