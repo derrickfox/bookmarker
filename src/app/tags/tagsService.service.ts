@@ -48,7 +48,6 @@ export class TagsService {
 
     deleteTag(id: number) {
         this.selectedTags.splice(id, 1);
-        console.log('after delete this.selectedTags', this.selectedTags);
         this.selectedTagsChanged.next(this.selectedTags.slice());
     }
 

@@ -43,6 +43,6 @@ export class TagFilterComponent implements OnInit {
 
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);
-		this.listService.emitTags.next(tag);
+		// this.listService.emitTags.next(tag);
 	}
 }

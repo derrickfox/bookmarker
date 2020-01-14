@@ -9,9 +9,9 @@ export class ItemService {
     searchTerm: string;
     itemsChanged = new Subject<Item[]>();
     testItems: Item[] = [
-        new Item(0, 'Zeroth Item', 'A zero is round.', [new Tag('Stuff'), new Tag('Other Stuff')], 'www.google.com'),
-        new Item(1, 'First Item', 'First is the worst.', [new Tag('A Cat'), new Tag('Duper')], 'www.jira.com'),
-        new Item(2, 'Second Item', 'Second is the best', [new Tag('Two'), new Tag('More Two')], 'www.yahoo.com')
+        new Item(0, 'Zeroth Item', 'A zero is round.', [new Tag('Zero'), new Tag('Nada')], 'www.google.com'),
+        new Item(1, 'First Item', 'First is the worst.', [new Tag('First'), new Tag('Uno')], 'www.jira.com'),
+        new Item(2, 'Second Item', 'Second is the best', [new Tag('Second'), new Tag('Dos')], 'www.yahoo.com')
     ]
 
     addItem(item: Item) {

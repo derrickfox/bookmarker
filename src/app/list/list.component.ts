@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from './items/item/item.model';
+import { Tag } from '../tags/tag/tag.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsService } from '../tags/tagsService.service';
 import { ItemService } from './items/item/item.service';
@@ -16,6 +17,7 @@ export class ListComponent implements OnInit {
 	filterdItems: Item[] = [];
 	searchTermSubscription: Subscription;
 	searchTerm: string;
+	selectedTags: Tag[];
 
 	constructor(
 		private itemService: ItemService, 
@@ -32,11 +34,35 @@ export class ListComponent implements OnInit {
 				this.items = items;
 			}
 		)
-		this.listService.emitTags.subscribe(tagInput => {
+		this.tagsService.selectedTagsChanged.subscribe(tags => {
+			this.filterTags(tags);
+		})
+		// this.listService.emitTags.subscribe(tagInput => {
+		// 	this.filterdItems = []
+		// 	this.items.map(item => {
+		// 		item.tags.map(tag => {
+		// 			if (tag.name === tagInput.name) {
+		// 				this.filterdItems.push(item);
+		// 			}
+		// 		})
+		// 	})
+		// 	if (this.filterdItems.length == 0) {
+		// 		this.filterdItems = this.items;
+		// 	}else{
+		// 		this.filterdItems;
+		// 	}
+		// })
+	}
+
+	filterTags(tags: Tag[]) {
+		this.filterdItems = []
+		tags.map(tag => {
 			this.items.map(item => {
-				item.tags.map(tag => {
-					if (tag.name === tagInput.name) {
-						this.filterdItems.push(item);
+				item.tags.map(itemTag => {
+					if (tag.name === itemTag.name) {
+						if (!this.filterdItems.includes(item)) {
+							this.filterdItems.push(item);
+						}
 					}
 				})
 			})
