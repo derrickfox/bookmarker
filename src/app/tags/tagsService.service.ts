@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Tag } from './tag/tag.model';
+import { Item } from '../list/items/item/item.model'
 import { ItemService } from '../list/items/item/item.service';
-import { Subject } from 'rxjs';
-import { ListService } from '../list/list.service';
+import { Subject, Subscription } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TagsService {
@@ -12,8 +12,10 @@ export class TagsService {
     tags: Tag[] = []
     searchTermChanged = new Subject<string>()
     searchTerm: string
+    itemSubscription: Subscription
+    items: Item[]
 
-    constructor(private itemService: ItemService, private listsService: ListService) {
+    constructor(private itemService: ItemService) {
         this.setAllTags();
     }
 
@@ -30,16 +32,18 @@ export class TagsService {
 
     getAllTags() {
         this.tagsChanged.next(this.tags.slice());
+        return this.tags.slice();
     }
 
     addSelectedTag(tag: Tag) {
         this.selectedTags.push(tag);
         this.selectedTagsChanged.next(this.selectedTags);
-        console.log('selected tags ', this.selectedTags);
+        console.log('tagsService -> addSelectedTag(tag) -> this.selected', this.selectedTags);
     }
 
     getSelectedTags() {
-        return this.selectedTagsChanged.next(this.selectedTags);
+        this.selectedTagsChanged.next(this.selectedTags.slice());
+        return this.selectedTags.slice();
     }
 
     getSearchTerm() {
@@ -48,7 +52,7 @@ export class TagsService {
 
     deleteTag(id: number) {
         this.selectedTags.splice(id, 1);
-        this.selectedTagsChanged.next(this.selectedTags.slice());
+        // this.selectedTagsChanged.next(this.selectedTags.slice());
     }
 
 }
