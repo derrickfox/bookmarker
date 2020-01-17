@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Tag } from './tag/tag.model';
 import { Item } from '../list/items/item/item.model'
 import { ItemService } from '../list/items/item/item.service';
-import { ListService } from '../list/list.service';
 import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

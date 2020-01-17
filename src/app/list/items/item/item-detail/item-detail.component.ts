@@ -4,6 +4,7 @@ import { Item } from '../item.model';
 import { Tag } from '../../../../tags/tag/tag.model';
 import { ItemService } from '../item.service';
 import { Subject } from 'rxjs';
+import { TagsService } from 'src/app/tags/tagsService.service';
 
 @Component({
 	selector: 'app-item-detail',
@@ -17,7 +18,11 @@ export class ItemDetailComponent implements OnInit {
 	testTag = new Subject<Tag>()
 	message: string
 
-	constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
+	constructor(
+		private itemService: ItemService, 
+		private router: Router, 
+		private route: ActivatedRoute,
+		private tagsService: TagsService) { }
 
 	ngOnInit() {
 		this.route.params.subscribe(
@@ -27,13 +32,7 @@ export class ItemDetailComponent implements OnInit {
 				this.item = this.itemService.getItem(this.id);
 			}
 		);
-		// this.testTag.subscribe(tag => {
-		// 	console.log('tag is ', tag)
-		// })
-	}
-
-	testEmitTag(tag: Tag) {
-		this.testTag.next(tag);
+		// this.itemService.itemsChanged.subscribe(items)
 	}
 
 	onEditItem() {
