@@ -6,6 +6,11 @@ div.row {
     padding: 4px;    
 }
 
+.tag {
+    display: inline;
+    margin: 5px;
+}
+
 div.row:hover {
     margin-left: 5px;
     -moz-transform: translate(-2px, -2px);
