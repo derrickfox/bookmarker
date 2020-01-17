@@ -17,29 +17,16 @@ export class SelectedTagsComponent implements OnInit, OnDestroy {
 	constructor(private tagsService: TagsService, private listService: ListService, private itemService: ItemService) { }
 
 	ngOnInit() {
-		console.log('selected-tags oninit')
-
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
-			console.log('selected-tags onInit -> selectedTagsChanged')
-			// tags.map(tag => {
-			// 	this.listService.emitTags.next(tag);
-			// })
+			console.log('selected-tags:onInit:selectedTagsChanged:this.selectedTags', this.selectedTags)
 		})
 	}
 
-	onTagSelected() {
-		
-	}
-
 	onDelete(id: number) {
-		console.log('selected-tags -> onDelete(id) -> id', id);
 		this.tagsService.deleteTag(id);
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
-			tags.map(tag => {
-				// this.listService.emitTags.next(tag);
-			})
 		})
 	}
 

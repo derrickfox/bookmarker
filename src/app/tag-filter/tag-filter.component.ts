@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tag } from '../tags/tag/tag.model';
 import { TagsService } from '../tags/tagsService.service';
-import { ItemService } from '../list/items/item/item.service';
-import { ListService } from '../list/list.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-tag-filter',
@@ -11,17 +9,16 @@ import { Subject, Subscription } from 'rxjs';
 	styleUrls: ['./tag-filter.component.css']
 })
 export class TagFilterComponent implements OnInit, OnDestroy {
-	tags: Tag[]
 	selectedTagsChanged = new Subject<Tag[]>()
+	searchTermSub = new Subject<string>()
+	tags: Tag[]
 	filteredTags: Tag[] = []
 	searchTerm: string
-	searchTermSub = new Subject<string>()
-	tagSubscription: Subscription;
 
-	constructor(private tagsService: TagsService, private itemsService: ItemService, private listService: ListService) { }
+	constructor(private tagsService: TagsService) { }
 
 	ngOnInit() {
-		this.tagSubscription = this.tagsService.tagsChanged.subscribe(tags => {
+		this.tagsService.tagsChanged.subscribe(tags => {
 			this.tags = tags
 		});
 		this.tagsService.getAllTags();
@@ -45,11 +42,8 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);
-		// this.selectedTagsChanged.next
-		console.log('tag-filter -> clicked(tag) -> tag', tag);
 	}
 
 	ngOnDestroy() {
-		this.tagSubscription.unsubscribe();
 	}
 }

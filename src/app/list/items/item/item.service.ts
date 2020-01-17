@@ -9,9 +9,15 @@ export class ItemService {
     searchTerm: string;
     itemsChanged = new Subject<Item[]>();
     testItems: Item[] = [
-        new Item(0, 'Zeroth Item', 'A zero is round.', [new Tag('Zero'), new Tag('Nada')], 'www.google.com'),
-        new Item(1, 'First Item', 'First is the worst.', [new Tag('First'), new Tag('Uno')], 'www.jira.com'),
-        new Item(2, 'Second Item', 'Second is the best', [new Tag('Second'), new Tag('Dos')], 'www.yahoo.com')
+        new Item(0, 'Zeroth Item', 'A zero is round.', [new Tag('Zero'), new Tag('Cat')], 'www.google.com'),
+        new Item(1, 'First Item', 'First is the worst.', [new Tag('First'), new Tag('Dog')], 'www.jira.com'),
+        new Item(2, 'Second Item', 'Second is the best', [new Tag('Second'), new Tag('Horse')], 'www.yahoo.com'),
+        new Item(3, 'Third Item', 'Three stuff.', [new Tag('Third'), new Tag('Cat')], 'www.google.com'),
+        new Item(4, 'Forth Item', 'Fourth stuf.', [new Tag('Forth'), new Tag('Dog')], 'www.jira.com'),
+        new Item(5, 'Fifth Item', 'Fifth stuffsfa', [new Tag('Fifth'), new Tag('Horse')], 'www.yahoo.com'),
+        new Item(6, 'Sixth Item', 'Sixth fjadlf.', [new Tag('Sixth'), new Tag('Cat')], 'www.google.com'),
+        new Item(7, 'Seventh Item', 'Seventh aflda.', [new Tag('Seventh'), new Tag('Dog')], 'www.jira.com'),
+        new Item(8, 'Eigth Item', 'Not sure how to spell 8th', [new Tag('Eigth'), new Tag('Horse')], 'www.yahoo.com')
     ]
 
     addItem(item: Item) {

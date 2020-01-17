@@ -2,18 +2,18 @@ import { Injectable } from "@angular/core";
 import { Tag } from './tag/tag.model';
 import { Item } from '../list/items/item/item.model'
 import { ItemService } from '../list/items/item/item.service';
-import { Subject, Subscription } from 'rxjs';
+import { ListService } from '../list/list.service';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TagsService {
     tagsChanged = new Subject<Tag[]>()
-    selectedTags: Tag[] = []
     selectedTagsChanged = new Subject<Tag[]>()
-    tags: Tag[] = []
     searchTermChanged = new Subject<string>()
-    searchTerm: string
-    itemSubscription: Subscription
+    selectedTags: Tag[] = []
+    tags: Tag[] = []
     items: Item[]
+    searchTerm: string
 
     constructor(private itemService: ItemService) {
         this.setAllTags();
@@ -38,7 +38,6 @@ export class TagsService {
     addSelectedTag(tag: Tag) {
         this.selectedTags.push(tag);
         this.selectedTagsChanged.next(this.selectedTags);
-        console.log('tagsService -> addSelectedTag(tag) -> this.selected', this.selectedTags);
     }
 
     getSelectedTags() {
@@ -52,7 +51,7 @@ export class TagsService {
 
     deleteTag(id: number) {
         this.selectedTags.splice(id, 1);
-        // this.selectedTagsChanged.next(this.selectedTags.slice());
+        this.selectedTagsChanged.next(this.selectedTags.slice());
     }
 
 }

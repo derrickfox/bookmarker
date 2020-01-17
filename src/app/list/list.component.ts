@@ -4,8 +4,7 @@ import { Tag } from '../tags/tag/tag.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsService } from '../tags/tagsService.service';
 import { ItemService } from './items/item/item.service';
-import { ListService } from './list.service';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-list',
@@ -17,56 +16,53 @@ export class ListComponent implements OnInit, OnDestroy {
 	filteredItems: Item[] = [];
 	searchTerm: string;
 	selectedTags: Tag[] = [];
-	selectedTagsChanged = new Subject<Tag[]>()
-	itemSubscription: Subscription;
-	tagSubscription: Subscription;
-	searchTermSubscription: Subscription;
+	selectedTagsChanged = new Subject<Tag[]>();
+	selectedItems: Item[];
 
 	constructor(
-		private itemService: ItemService, 
-		private router: Router, 
+		private itemService: ItemService,
+		private router: Router,
 		private route: ActivatedRoute,
-		private listService: ListService,
 		private tagsService: TagsService) { }
 
 	ngOnInit() {
+		console.log('list.component:ngOnInit triggered')
 		this.items = this.itemService.getItems();
-
-		this.itemSubscription = this.itemService.itemsChanged.subscribe(
-			(items: Item[]) => {
-				this.items = items;
-			}
-		)
 		this.selectedTags = this.tagsService.getSelectedTags();
+
 		this.tagsService.selectedTagsChanged.subscribe(tags => {
-			console.log('list.component -> ngOnInit() -> this.tagsService.selectedTagsChanged -> tags', tags);
-			tags.map(tag => {
-				this.filterTags(tags);
+			this.selectedTags = tags;
+			this.filterTags();
+			console.log('list.component:ngOnInit():tagsService.selectedTagsChanged:selectedTags', this.selectedTags)
+		})
+	}
+
+	filterTags() {
+		this.selectedTags.map(tag => {
+			console.log('tag', tag);
+			this.items.map(item => {
+				if (!this.filteredItems.includes(item)) {
+					console.log('item', item);
+					item.tags.map(itemTag => {
+						// console.log('itemTag', itemTag);
+						if (tag.name === itemTag.name) {
+							console.log('itemTag.name', itemTag.name);
+							if (!this.filteredItems.includes(item)) {
+								this.filteredItems.push(item);
+								console.log('final item', item);
+								this.itemService.itemsChanged.next(this.filteredItems.slice());
+								console.log('this.filteredItems', this.filteredItems);
+							}
+						}
+					})
+				}
 			})
 		})
 	}
 
 	onItemClicked(item: Item) {
-		// this.itemService.itemsChanged.next(this.filteredItems);
 		this.selectedTags = this.tagsService.getSelectedTags();
-		console.log('onItemClicked -> this.selectedTags', this.selectedTags);
 		this.selectedTagsChanged.next(this.selectedTags);
-	}
-
-	filterTags(tags: Tag[]) {
-		tags.map(tag => {
-			this.items.map(item => {
-				item.tags.map(itemTag => {
-					if (tag.name === itemTag.name) {
-						if (!this.filteredItems.includes(item)) {
-							this.filteredItems.push(item);
-							this.itemService.itemsChanged.next(this.filteredItems);
-							console.log('this.filteredItems', this.filteredItems);
-						}
-					}
-				})
-			})
-		})
 	}
 
 	onNewItem() {
@@ -74,9 +70,6 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.itemSubscription.unsubscribe();
-		this.tagSubscription.unsubscribe();
-		this.searchTermSubscription.unsubscribe();
 	}
 
 }

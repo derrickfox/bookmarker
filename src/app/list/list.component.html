@@ -1,10 +1,10 @@
-<div *ngIf="filteredItems.length === 0" class="col-xs-4" style="margin-left: 20px;">
+<!-- <div *ngIf="filteredItems.length === 0" class="col-xs-4" style="margin-left: 20px;">
     <app-item
         *ngFor="let itemElement of items; let i = index;"
         [item]=itemElement
         [index]="i">
     </app-item>
-</div>
+</div> -->
 <div *ngIf="filteredItems.length > 0" class="col-xs-4" style="margin-left: 20px;">
     <app-item
         *ngFor="let itemElement of filteredItems; let i = index;"

@@ -3,37 +3,40 @@ import { Subject } from 'rxjs';
 import { Tag } from '../tags/tag/tag.model';
 import { Item } from '../list/items/item/item.model';
 import { ItemService } from '../list/items/item/item.service';
-import { TagsService } from '../tags/tagsService.service';
 
 @Injectable({providedIn: 'root'})
 export class ListService {
     searchTerm: string = ''
-    tagsChanged = new Subject<Tag[]>()
     selectedItems: Item[];
+    selectedTags: Tag[];
     allItems: Item[]
     
-    constructor(private itemService: ItemService, private tagsService: TagsService) {
+    constructor(private itemService: ItemService) {
+
 
     }
 
     filterTags(tags: Tag[]) {
-        this.allItems = this.itemService.getItems();
-        // this.filteredItems = []
-        console.log('this.allItems', this.allItems)
-		tags.map(tag => {
-			this.allItems.map(item => {
-				item.tags.map(itemTag => {
-					if (tag.name === itemTag.name) {
-						if (!this.selectedItems.includes(item)) {
-							this.selectedItems.push(item);
-							this.itemService.itemsChanged.next(this.selectedItems);
-							console.log('this.selectedItems', this.selectedItems);
-						}
-					}
-				})
-			})
-		})
-	}
+        if(tags !== undefined){
+            tags.map(tag => {
+                this.allItems.map(item => {
+                    item.tags.map(itemTag => {
+                        if (tag.name === itemTag.name && this.selectedItems !== undefined) {
+                            if (!this.selectedItems.includes(item)) {
+                                this.selectedItems.push(item);
+                                this.itemService.itemsChanged.next(this.selectedItems.slice());
+                            }
+                        }
+                    })
+                })
+            })
+        }
+
+    }
+    
+    getAllItems() {
+        return this.allItems.slice();
+    }
 
     getSearchTerm() {
         return this.searchTerm;
