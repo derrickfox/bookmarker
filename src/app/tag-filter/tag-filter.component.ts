@@ -14,15 +14,19 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 	tags: Tag[]
 	filteredTags: Tag[] = []
 	searchTerm: string
+	startingTag: Tag
+
 
 	constructor(private tagsService: TagsService) { }
 
 	ngOnInit() {
 		this.tagsService.tagsChanged.subscribe(tags => {
 			this.tags = tags
+			let foundTag: Tag
 		});
 		this.tagsService.getAllTags();
-		this.filteredTags = this.tags;
+		this.filteredTags = this.checkForDoubleTags(this.tags);
+		// this.startingTag = this.tags[0]
 	}
 
 	onKeyUp(searchTerm: string) {
@@ -38,6 +42,25 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 				}
 			}
 		})
+	}
+
+	checkForDoubleTags(tags: Tag[]) {
+		let tempSet = new Set<string>();
+		let filteredArray: Tag [] = [];
+		tags.map(tag => {
+			if (tempSet.has(tag.name)){
+				console.log("He said they've already got one.")
+			}else{
+				tempSet.add(tag.name);
+			}
+		})
+		tempSet.forEach(string => {
+			let tempTag = new Tag(string);
+			filteredArray.push(tempTag);
+		})
+		console.log('filteredArray', filteredArray);
+		
+		return filteredArray
 	}
 
 	clicked(tag: Tag) {
