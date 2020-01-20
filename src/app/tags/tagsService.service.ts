@@ -9,6 +9,7 @@ export class TagsService {
     tagsChanged = new Subject<Tag[]>()
     selectedTagsChanged = new Subject<Tag[]>()
     searchTermChanged = new Subject<string>()
+    newTag = new Subject<Tag>();
     selectedTags: Tag[] = []
     tags: Tag[] = []
     items: Item[]
@@ -36,6 +37,7 @@ export class TagsService {
 
     addSelectedTag(tag: Tag) {
         this.selectedTags.push(tag);
+        this.newTag.next(tag);
         this.selectedTagsChanged.next(this.selectedTags);
     }
 

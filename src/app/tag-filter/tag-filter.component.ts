@@ -49,7 +49,7 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 		let filteredArray: Tag [] = [];
 		tags.map(tag => {
 			if (tempSet.has(tag.name)){
-				console.log("He said they've already got one.")
+
 			}else{
 				tempSet.add(tag.name);
 			}
@@ -58,7 +58,6 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 			let tempTag = new Tag(string);
 			filteredArray.push(tempTag);
 		})
-		console.log('filteredArray', filteredArray);
 		
 		return filteredArray
 	}

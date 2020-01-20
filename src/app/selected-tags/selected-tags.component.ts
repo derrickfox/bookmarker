@@ -19,7 +19,6 @@ export class SelectedTagsComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
-			console.log('selected-tags:onInit:selectedTagsChanged:this.selectedTags', this.selectedTags)
 		})
 	}
 
