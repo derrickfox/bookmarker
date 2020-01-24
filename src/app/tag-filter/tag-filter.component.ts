@@ -25,8 +25,11 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 			let foundTag: Tag
 		});
 		this.tagsService.getAllTags();
-		this.filteredTags = this.checkForDoubleTags(this.tags);
-		// this.startingTag = this.tags[0]
+		if (!this.tags){
+			console.log('no tags')
+		}else{
+			this.filteredTags = this.checkForDoubleTags(this.tags);
+		}
 	}
 
 	onKeyUp(searchTerm: string) {

@@ -5,14 +5,14 @@
 <br>
 <hr>
 
-<!-- <div *ngIf="filteredTags.length === 0">
+<div *ngIf="filteredTags.length === 0">
     <button *ngFor="let tag of tags"
         (click)="clicked(tag)" 
         type="button" 
         class="btn btn-info tag"
         >{{tag.name}}
     </button>
-</div> -->
+</div>
 
 <div *ngIf="filteredTags.length !== 0">
     <button *ngFor="let tag of filteredTags"
