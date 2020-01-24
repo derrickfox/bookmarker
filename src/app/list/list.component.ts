@@ -31,12 +31,18 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.selectedTags = this.tagsService.getSelectedTags();
 
 		this.tagsService.newTag.subscribe(newTag => {
+			console.log('ngOnInit', newTag);
 			this.filterTagsAnd(newTag);		
 		})
-		// this.tagsService.selectedTagsChanged.subscribe(tags => {
-		// 	// this.selectedTags = tags;
-		// 	// this.filterTagsOr();
-		// })
+		this.tagsService.selectedTagsChanged.subscribe(tags => {
+			console.log('tags ngOnInit', tags);
+			if (tags.length === 0) {
+				console.log('no tags!');
+				this.filteredItems = [];
+			}
+			// this.selectedTags = tags;
+			// this.filterTagsOr();
+		})
 	}
 
 	filterTagsAnd(newTag: Tag) {
@@ -80,62 +86,6 @@ export class ListComponent implements OnInit, OnDestroy {
 				}
 			})
 		}
-
-
-		// for (let i = 0; i <= this.items.length; i++) {
-		// 	for (let r = 0; r <= selectedTags.length; r++) {
-		// 		if (this.items[i] !== undefined) {
-		// 			for (let p = 0; p <= this.items[i].tags.length; p++) {
-		// 				if (this.items[i].tags[p] !== undefined && selectedTags[r] !== undefined) {
-		// 					console.log('this.items[i].tags[p].name', this.items[i].tags[p].name);
-		// 					console.log('selectedTags[r].name', selectedTags[r].name);
-		// 					if (this.filteredItems[i].tags[p].name === selectedTags[r].name) {
-		// 						found = true;
-		// 					}else{
-		// 						return;
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// 	console.log('found', found)
-		// 	if (found = true) {
-		// 		this.filteredItems.push(this.items[i])
-		// 	}
-		// }
-
-
-
-		// // let intersection = new Set([...set1].filter(x => set2.has(x)))
-		// this.filteredItems = []
-		// let selectedTagsSet = new Set<string>();
-		// let itemTagsSet = new Set<string>();
-		// let idNameArray = [];
-		// let found: boolean = false;
-
-		// selectedTags.map(selectedTag => {
-		// 	selectedTagsSet.add(selectedTag.name);
-		// })
-		// this.items.map(item =>{
-		// 	item.tags.map(tag => {
-		// 		itemTagsSet.add(tag.name);
-		// 	})
-		// })
-
-
-		// selectedTagsSet.forEach(selectedTag => {
-		// 	itemTagsSet.forEach(itemTag => {
-		// 		if(itemTagsSet.has(selectedTag)){
-		// 			found = true;
-		// 		}
-		// 	})
-		// })
-		// console.log('found', found);
-		// console.log('selectedTagsSet', selectedTagsSet);
-		// console.log('itemTagsSet', itemTagsSet);
-
-		// let intersection = new Set([...itemTagSet].filter(x => selectedTagSet.has(x)))
-		// console.log('intersection', intersection);
 	}
 
 	filterTagsOr() {
@@ -157,6 +107,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
 	onItemClicked(item: Item) {
 		this.selectedTags = this.tagsService.getSelectedTags();
+		console.log('item', item);
 		this.selectedTagsChanged.next(this.selectedTags);
 	}
 
