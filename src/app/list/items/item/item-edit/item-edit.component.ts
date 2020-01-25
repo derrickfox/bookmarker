@@ -13,9 +13,12 @@ import { Tag } from '../../../../tags/tag/tag.model';
 
 export class ItemEditComponent implements OnInit {
 	id: number;
+	name: string;
+	description: string;
 	editMode: boolean = false;
 	itemForm: FormGroup;
 	tags: Tag[];
+	url: string;
 
 	constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router) { }
 
@@ -49,24 +52,23 @@ export class ItemEditComponent implements OnInit {
 		this.router.navigate(['../'], { relativeTo: this.route });
 	}
 
-	get controls() {
-		return (<FormArray>this.itemForm.get('ingredients')).controls;
-	}
-
 	private initForm() {
 		let itemId = 0;
 		let itemName = '';
 		let itemDescription = '';
+		let itemUrl = '';
 		if (this.editMode) {
 			const item = this.itemService.getItem(this.id);
 			itemId = this.id;
 			itemName = item.name;
 			itemDescription = item.description;
+			itemUrl = item.url;
 		}
 		this.itemForm = new FormGroup({
 			'id': new FormControl(itemId),
 			'name': new FormControl(itemName, Validators.required),
-			'description': new FormControl(itemDescription, Validators.required)
+			'description': new FormControl(itemDescription, Validators.required),
+			'url': new FormControl(itemUrl)
 		});
 	}
 }
