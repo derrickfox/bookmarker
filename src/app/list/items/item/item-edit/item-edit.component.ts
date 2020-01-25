@@ -23,14 +23,17 @@ export class ItemEditComponent implements OnInit {
 	constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router) { }
 
 	ngOnInit() {
-		this.route.params.subscribe(
-			(params: Params) => {
-				// The + sign casts the string into a number.
-				this.id = +params['id'];
-				this.editMode = params['id'] != null;
-				this.initForm();
-			}
-		)
+		this.itemService.selectedItemChanged.subscribe(item => {
+			
+		})
+		// this.route.params.subscribe(
+		// 	(params: Params) => {
+		// 		// The + sign casts the string into a number.
+		// 		this.id = +params['id'];
+		// 		this.editMode = params['id'] != null;
+		// 		this.initForm();
+		// 	}
+		// )
 	}
 
 	onSubmit() {
