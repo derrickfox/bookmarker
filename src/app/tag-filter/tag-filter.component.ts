@@ -26,7 +26,7 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 		});
 		this.tagsService.getAllTags();
 		if (!this.tags){
-			console.log('no tags')
+			// do nothing
 		}else{
 			this.filteredTags = this.checkForDoubleTags(this.tags);
 		}

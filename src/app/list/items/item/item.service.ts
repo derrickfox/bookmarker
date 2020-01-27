@@ -39,16 +39,11 @@ export class ItemService {
 
     getItem(id: number) {
         let thisItem: Item;
-        console.log('this.testItems', this.testItems)
         this.testItems.map(item => {
-            console.log('item', item);
-            console.log('id', id);
             if (item.id === id) {
-                console.log('found!', item)
                 this.selectedItem = item;
             }
         })
-        console.log('thisItem', thisItem)
         // return this.testItems[id];
 
         this.selectedItemChanged.next(this.selectedItem)

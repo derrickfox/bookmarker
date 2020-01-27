@@ -25,7 +25,6 @@ export class SelectedTagsComponent implements OnInit, OnDestroy {
 	onDelete(id: number) {
 		this.tagsService.deleteTag(id);
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
-			console.log('tags', tags);
 			this.selectedTags = tags;
 		})
 	}

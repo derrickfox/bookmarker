@@ -31,13 +31,10 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.selectedTags = this.tagsService.getSelectedTags();
 
 		this.tagsService.newTag.subscribe(newTag => {
-			console.log('ngOnInit', newTag);
 			this.filterTagsAnd(newTag);		
 		})
 		this.tagsService.selectedTagsChanged.subscribe(tags => {
-			console.log('tags ngOnInit', tags);
 			if (tags.length === 0) {
-				console.log('no tags!');
 				this.filteredItems = [];
 			}
 			// this.selectedTags = tags;
@@ -61,7 +58,6 @@ export class ListComponent implements OnInit, OnDestroy {
 			})
 		}else{
 			// this.filteredItems = []
-			console.log('this.filteredItems', this.filteredItems)
 			let uniqueItemSet = new Set<Item>();
 			this.filteredItems.map(filteredItem => {
 				let itemTagsStrings = [];
@@ -74,12 +70,9 @@ export class ListComponent implements OnInit, OnDestroy {
 				if(passed){
 					this.filteredItems.push(filteredItem);
 					uniqueItemSet.add(filteredItem);
-					console.log('this.filteredItems', this.filteredItems);
-					console.log('uniqueItemSet', uniqueItemSet);
 					this.filteredItems = [];
 					uniqueItemSet.forEach(item => {
 						this.filteredItems.push(item);
-						console.log('new filteredItems', this.filteredItems);
 					})
 				}else{
 					this.filteredItems = []
@@ -107,7 +100,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
 	onItemClicked(item: Item) {
 		this.selectedTags = this.tagsService.getSelectedTags();
-		console.log('item', item);
 		this.selectedTagsChanged.next(this.selectedTags);
 	}
 
