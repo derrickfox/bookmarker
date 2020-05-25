@@ -19,7 +19,6 @@ export class ListComponent implements OnInit, OnDestroy {
 	selectedTags: Tag[] = [];
 	selectedTagsChanged = new Subject<Tag[]>();
 	selectedItems: Item[] = [];
-	selectedTagSet = new Set();
 
 	constructor(
 		private itemService: ItemService,
@@ -38,16 +37,16 @@ export class ListComponent implements OnInit, OnDestroy {
 			if (tags.length === 0) {
 				this.filteredItems = [];
 			}
-		})
-		this.items.map(item => {
-			item.tags.map(tag => {
-				this.selectedTagSet.add(tag.name);
-			})
+			// this.selectedTags = tags;
+			// this.filterTagsOr();
 		})
 	}
 
 	filterTagsAnd(newTag: Tag) {
+		// let intersection = arrA.filter(x => arrB.includes(x));
+
 		let passed = false;
+		let allChecks = []
 
 		if(this.filteredItems.length === 0){
 			this.items.map(item => {
@@ -76,7 +75,7 @@ export class ListComponent implements OnInit, OnDestroy {
 						this.filteredItems.push(item);
 					})
 				}else{
-					// this.filteredItems = []
+					this.filteredItems = []
 				}
 			})
 		}
