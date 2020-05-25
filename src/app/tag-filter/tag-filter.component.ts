@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tag } from '../tags/tag/tag.model';
 import { TagsService } from '../tags/tagsService.service';
 import { Subject } from 'rxjs';
+import { tags } from '../tags/tags-mock';
 
 @Component({
 	selector: 'app-tag-filter',
@@ -11,8 +12,8 @@ import { Subject } from 'rxjs';
 export class TagFilterComponent implements OnInit, OnDestroy {
 	selectedTagsChanged = new Subject<Tag[]>()
 	searchTermSub = new Subject<string>()
-	tags: Tag[]
-	filteredTags: Tag[] = []
+	tags: Tag[] = tags;
+	filteredTags: Tag[] = tags;
 	searchTerm: string
 	startingTag: Tag
 
@@ -24,12 +25,14 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 			this.tags = tags
 			let foundTag: Tag
 		});
-		this.tagsService.getAllTags();
-		if (!this.tags){
-			// do nothing
-		}else{
-			this.filteredTags = this.checkForDoubleTags(this.tags);
-		}
+		// this.tagsService.getAllTags();
+		// if (!this.tags){
+		// 	// do nothing
+		// }else{
+		// 	// this.filteredTags = this.checkForDoubleTags(this.tags);
+		// 	this.filteredTags = this.tags;
+		// 	console.log('filteredTags', this.filteredTags);
+		// }
 	}
 
 	onKeyUp(searchTerm: string) {
@@ -47,23 +50,23 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	checkForDoubleTags(tags: Tag[]) {
-		let tempSet = new Set<string>();
-		let filteredArray: Tag [] = [];
-		tags.map(tag => {
-			if (tempSet.has(tag.name)){
+	// checkForDoubleTags(tags: Tag[]) {
+	// 	let tempSet = new Set<string>();
+	// 	let filteredArray: Tag [] = [];
+	// 	tags.map(tag => {
+	// 		if (tempSet.has(tag.name)){
 
-			}else{
-				tempSet.add(tag.name);
-			}
-		})
-		tempSet.forEach(string => {
-			let tempTag = new Tag(string);
-			filteredArray.push(tempTag);
-		})
+	// 		}else{
+	// 			tempSet.add(tag.name);
+	// 		}
+	// 	})
+	// 	tempSet.forEach(tag => {
+	// 		let tempTag = new Tag(index, tag.name);
+	// 		filteredArray.push(tempTag);
+	// 	})
 		
-		return filteredArray
-	}
+	// 	return filteredArray
+	// }
 
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);

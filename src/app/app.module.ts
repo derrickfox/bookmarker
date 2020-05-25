@@ -21,6 +21,7 @@ import { ListFilterDirective } from './list/list-filter.directive';
 import { TagDetailsComponent } from './tags/tag-details/tag-details.component';
 import { TagEditComponent } from './tags/tag-edit/tag-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagDictionaryComponent } from './tags/tag-dictionary/tag-dictionary.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TagDetailsComponent,
     TagEditComponent,
     HeaderComponent,
-    ListFilterDirective
+    ListFilterDirective,
+    TagDictionaryComponent
   ],
   imports: [
     BrowserModule,
