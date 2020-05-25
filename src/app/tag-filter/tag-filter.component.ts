@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tag } from '../tags/tag/tag.model';
 import { TagsService } from '../tags/tagsService.service';
-import { ItemService } from '../list/items/item/item.service';
-import { ListService } from '../list/list.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -10,20 +8,28 @@ import { Subject } from 'rxjs';
 	templateUrl: './tag-filter.component.html',
 	styleUrls: ['./tag-filter.component.css']
 })
-export class TagFilterComponent implements OnInit {
+export class TagFilterComponent implements OnInit, OnDestroy {
+	selectedTagsChanged = new Subject<Tag[]>()
+	searchTermSub = new Subject<string>()
 	tags: Tag[]
 	filteredTags: Tag[] = []
 	searchTerm: string
-	searchTermSub = new Subject<string>()
+	startingTag: Tag
 
-	constructor(private tagsService: TagsService, private itemsService: ItemService, private listService: ListService) { }
+
+	constructor(private tagsService: TagsService) { }
 
 	ngOnInit() {
 		this.tagsService.tagsChanged.subscribe(tags => {
 			this.tags = tags
+			let foundTag: Tag
 		});
 		this.tagsService.getAllTags();
-		this.filteredTags = this.tags;
+		if (!this.tags){
+			// do nothing
+		}else{
+			this.filteredTags = this.checkForDoubleTags(this.tags);
+		}
 	}
 
 	onKeyUp(searchTerm: string) {
@@ -41,8 +47,28 @@ export class TagFilterComponent implements OnInit {
 		})
 	}
 
+	checkForDoubleTags(tags: Tag[]) {
+		let tempSet = new Set<string>();
+		let filteredArray: Tag [] = [];
+		tags.map(tag => {
+			if (tempSet.has(tag.name)){
+
+			}else{
+				tempSet.add(tag.name);
+			}
+		})
+		tempSet.forEach(string => {
+			let tempTag = new Tag(string);
+			filteredArray.push(tempTag);
+		})
+		
+		return filteredArray
+	}
+
 	clicked(tag: Tag) {
 		this.tagsService.addSelectedTag(tag);
-		this.listService.emitTags.next(tag);
+	}
+
+	ngOnDestroy() {
 	}
 }

@@ -1,20 +1,31 @@
 <!-- <app-header></app-header> -->
+<img style="position: absolute; top: 0px; right: 0px; transform: scale(1); z-index: 100;" src="../assets/Untitled_Artwork 25.png">
 
 <div class="container">
+
 	<div class="row">
-		<div style="right: 0; position: absolute; z-index: 1000;">
-			<button class="btn btn-primary" style="border-radius: 25px;">Sign In</button>
-		</div>
 		<div class="col-xs-3" id="filter">
 			<app-tag-filter></app-tag-filter>
+
 		</div>
-		<div class="col-xs-9" style="border: 2px solid red; padding-left: 15px;">
+		<div class="col-xs-9" style="padding-left: 20px;">
+
 			<div class="row">
+
 				<app-selected-tags></app-selected-tags>
+
+				<div style="right: 20px; top: 26px; position: absolute; z-index: 1000;">
+					<button class="btn btn-primary" style="border-radius: 25px;">Sign In</button>
+				</div>
 			</div>
 			<div class="row">
+
 				<router-outlet></router-outlet>
+
 			</div>
+
 		</div>
+
 	</div>
+
 </div>

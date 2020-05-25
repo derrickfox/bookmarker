@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Item } from '../item.model';
+import { Tag } from '../../../../tags/tag/tag.model';
 import { ItemService } from '../item.service';
+import { Subject } from 'rxjs';
+import { TagsService } from 'src/app/tags/tagsService.service';
 
 @Component({
 	selector: 'app-item-detail',
@@ -12,8 +15,14 @@ export class ItemDetailComponent implements OnInit {
 
 	item: Item
 	id: number
+	testTag = new Subject<Tag>()
+	message: string
 
-	constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
+	constructor(
+		private itemService: ItemService, 
+		private router: Router, 
+		private route: ActivatedRoute,
+		private tagsService: TagsService) { }
 
 	ngOnInit() {
 		this.route.params.subscribe(
@@ -23,6 +32,7 @@ export class ItemDetailComponent implements OnInit {
 				this.item = this.itemService.getItem(this.id);
 			}
 		);
+		// this.itemService.itemsChanged.subscribe(items)
 	}
 
 	onEditItem() {
@@ -30,7 +40,7 @@ export class ItemDetailComponent implements OnInit {
 	}
 
 	onDeleteItem() {
-		this.itemService.deleteRecipe(this.id);
+		this.itemService.deleteBookmark(this.id);
 		this.router.navigate(['/items']);
 	}
 }

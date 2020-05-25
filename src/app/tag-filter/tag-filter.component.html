@@ -4,13 +4,21 @@
 </div>
 <br>
 <hr>
-<div class="col-xs-4">
-    <div class="row" *ngFor="let tag of filteredTags">
-        <button 
-            (click)="clicked(tag)" 
-            type="button" 
-            class="btn btn-info"
-            >{{tag.name}}
-        </button>
-    </div>
+
+<div *ngIf="filteredTags.length === 0">
+    <button *ngFor="let tag of tags"
+        (click)="clicked(tag)" 
+        type="button" 
+        class="btn btn-info tag"
+        >{{tag.name}}
+    </button>
+</div>
+
+<div *ngIf="filteredTags.length !== 0">
+    <button *ngFor="let tag of filteredTags"
+        (click)="clicked(tag)" 
+        type="button" 
+        class="btn btn-info tag"
+        >{{tag.name}}
+    </button>
 </div>

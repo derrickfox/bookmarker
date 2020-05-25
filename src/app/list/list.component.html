@@ -1,14 +1,14 @@
-<div *ngIf="filterdItems.length === 0" class="col-xs-4">
+<div *ngIf="filteredItems.length === 0" class="col-xs-4" style="margin-left: 20px;">
     <app-item
-        *ngFor="let itemElement of items; let i = index;"
+        *ngFor="let itemElement of items;"
         [item]=itemElement
-        [index]="i">
+        [index]="itemElement.id">
     </app-item>
 </div>
-<div *ngIf="filterdItems.length > 0" class="col-xs-4">
+<div *ngIf="filteredItems.length > 0" class="col-xs-4" style="margin-left: 20px;">
     <app-item
-        *ngFor="let itemElement of filterdItems; let i = index;"
+        *ngFor="let itemElement of filteredItems;"
         [item]=itemElement
-        [index]="i">
+        [index]="itemElement.id">
     </app-item>
 </div>

@@ -1,50 +1,114 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Item } from './items/item/item.model';
+import { Tag } from '../tags/tag/tag.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsService } from '../tags/tagsService.service';
 import { ItemService } from './items/item/item.service';
-import { ListService } from './list.service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
 	selector: 'app-list',
 	templateUrl: './list.component.html',
 	styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 	items: Item[];
-	filterdItems: Item[] = [];
-	searchTermSubscription: Subscription;
+	filteredItems: Item[] = [];
 	searchTerm: string;
+	selectedTags: Tag[] = [];
+	selectedTagsChanged = new Subject<Tag[]>();
+	selectedItems: Item[] = [];
+	selectedTagSet = new Set();
 
 	constructor(
-		private itemService: ItemService, 
-		private router: Router, 
+		private itemService: ItemService,
+		private router: Router,
 		private route: ActivatedRoute,
-		private listService: ListService,
 		private tagsService: TagsService) { }
 
 	ngOnInit() {
 		this.items = this.itemService.getItems();
+		this.selectedTags = this.tagsService.getSelectedTags();
 
-		this.itemService.itemsChanged.subscribe(
-			(items: Item[]) => {
-				this.items = items;
+		this.tagsService.newTag.subscribe(newTag => {
+			this.filterTagsAnd(newTag);		
+		})
+		this.tagsService.selectedTagsChanged.subscribe(tags => {
+			if (tags.length === 0) {
+				this.filteredItems = [];
 			}
-		)
-		this.listService.emitTags.subscribe(tagInput => {
-			this.items.map(item => {
-				item.tags.map(tag => {
-					if (tag.name === tagInput.name) {
-						this.filterdItems.push(item);
-					}
-				})
+		})
+		this.items.map(item => {
+			item.tags.map(tag => {
+				this.selectedTagSet.add(tag.name);
 			})
 		})
 	}
 
+	filterTagsAnd(newTag: Tag) {
+		let passed = false;
+
+		if(this.filteredItems.length === 0){
+			this.items.map(item => {
+				item.tags.map(tag => {
+					if(tag.name === newTag.name){
+						this.filteredItems.push(item);
+					}
+				})
+			})
+		}else{
+			// this.filteredItems = []
+			let uniqueItemSet = new Set<Item>();
+			this.filteredItems.map(filteredItem => {
+				let itemTagsStrings = [];
+				filteredItem.tags.map(tag => {
+					itemTagsStrings.push(tag.name);
+				})
+				if (itemTagsStrings.includes(newTag.name)) {
+					passed = true;
+				}
+				if(passed){
+					this.filteredItems.push(filteredItem);
+					uniqueItemSet.add(filteredItem);
+					this.filteredItems = [];
+					uniqueItemSet.forEach(item => {
+						this.filteredItems.push(item);
+					})
+				}else{
+					// this.filteredItems = []
+				}
+			})
+		}
+	}
+
+	filterTagsOr() {
+		this.selectedTags.map(tag => {
+			this.items.map(item => {
+				if (!this.filteredItems.includes(item)) {
+					item.tags.map(itemTag => {
+						if (tag.name === itemTag.name) {
+							if (!this.filteredItems.includes(item)) {
+								this.filteredItems.push(item);
+								this.itemService.itemsChanged.next(this.filteredItems.slice());
+							}
+						}
+					})
+				}
+			})
+		})
+	}
+
+	onItemClicked(item: Item) {
+		this.selectedTags = this.tagsService.getSelectedTags();
+		this.selectedTagsChanged.next(this.selectedTags);
+	}
+
 	onNewItem() {
 		this.router.navigate(['new'], { relativeTo: this.route })
+	}
+
+	ngOnDestroy() {
 	}
 
 }
