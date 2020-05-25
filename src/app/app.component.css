@@ -1,3 +1,8 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
 .test-container {
     height: 100%;
     display: flex;
@@ -9,3 +14,15 @@
     font-size: 13px;
     margin-bottom: 5px;
 }
+
+#filter {
+    background-color: #061E33;
+}
+
+app-item {
+    position: absolute;
+    left: 350px;
+}
+
+
+

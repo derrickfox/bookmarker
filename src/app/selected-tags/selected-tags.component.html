@@ -1,0 +1,4 @@
+<div class="col-xs-12">
+    <h3 id="selectedTags">Selected Tags</h3>
+    <button style="margin-right: 10px; margin-bottom: 10px;" (click)="onDelete(i)" class="btn btn-info" type="button" *ngFor="let tag of selectedTags; let i = index;">{{tag.name}}</button>
+</div>

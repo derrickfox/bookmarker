@@ -1,0 +1,24 @@
+<h3 id="headerTitle">Tag Filter</h3>
+<div style="border-radius: 25px;">
+    <input style="float: left; border-radius: 25px;" [(ngModel)]="searchTerm" (keyup)="onKeyUp(searchTerm)">
+</div>
+<br>
+<hr>
+
+<div *ngIf="filteredTags.length === 0">
+    <button *ngFor="let tag of tags"
+        (click)="clicked(tag)" 
+        type="button" 
+        class="btn btn-info tag"
+        >{{tag.name}}
+    </button>
+</div>
+
+<div *ngIf="filteredTags.length !== 0">
+    <button *ngFor="let tag of filteredTags"
+        (click)="clicked(tag)" 
+        type="button" 
+        class="btn btn-info tag"
+        >{{tag.name}}
+    </button>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="filteredItems.length === 0" class="col-xs-4" style="margin-left: 20px;">
+    <app-item
+        *ngFor="let itemElement of items;"
+        [item]=itemElement
+        [index]="itemElement.id">
+    </app-item>
+</div>
+<div *ngIf="filteredItems.length > 0" class="col-xs-4" style="margin-left: 20px;">
+    <app-item
+        *ngFor="let itemElement of filteredItems;"
+        [item]=itemElement
+        [index]="itemElement.id">
+    </app-item>
+</div>

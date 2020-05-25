@@ -1,14 +1,21 @@
+<!-- <app-header></app-header> -->
 <div class="container">
-	<div class="col-xs-12">
-		<div class="row">
-			<h1>US States</h1>
+	<!-- <img src="../assets/beta.jpg"> -->
+
+	<div class="row">
+		<div class="col-xs-3" id="filter">
+			<app-tag-filter></app-tag-filter>
 		</div>
-	</div>
-	<div class="col-xs-12">
-		<div class="row">
-			<ag-grid-angular style="width: 100%; height: 600px;" class="ag-theme-balham" [rowData]="rowData"
-				[columnDefs]="columnDefs" (gridReady)="onGridReady($event)">
-			</ag-grid-angular>
+		<div class="col-xs-9" style="padding-left: 20px;">
+			<div class="row">
+				<app-selected-tags></app-selected-tags>
+				<div style="right: 20px; top: 26px; position: absolute; z-index: 1000;">
+					<button class="btn btn-primary" style="border-radius: 25px;">Sign In</button>
+				</div>
+			</div>
+			<div class="row">
+				<router-outlet></router-outlet>
+			</div>
 		</div>
 	</div>
 </div>
