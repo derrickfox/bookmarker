@@ -62,32 +62,33 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	public filterTagsAnd():void {
-		console.log('this.selectedTags', this.selectedTags);
-		console.log('this.items', this.items);
-
-		// Clear filtered items
-		this.filteredItems = [];
-		
-		// Set of selected tag IDs
-		let selectedIDsSet = new Set();
-		this.selectedTags.map(tag => {
-			selectedIDsSet.add(tag.id);
-		})
-
-		// Set of items tag IDs
-		let itemTagIDsSet = new Set();
-		this.items.map(item => {
-			item.tags.map(tag => {
-				itemTagIDsSet.add(tag.id);
+		console.clear();
+		console.log(Date.now())
+		if(this.selectedTags.length === 0){
+			return;
+		}else{
+			// Clear filtered items
+			this.filteredItems = [];
+	
+			// Set of selected tag IDs
+			let selectedIDsSet = new Set();
+			this.selectedTags.map(tag => {
+				selectedIDsSet.add(tag.id);
 			})
-			let isSuperSetResult = this.isSuperset(itemTagIDsSet, selectedIDsSet);
-			if(isSuperSetResult){
-				console.log('IS a superset')
-				this.filteredItems.push(item);
-			}
-		})
-
-		// let resultIDsSet = this.intersection(selectedIDsSet, itemTagIDsSet);
+	
+			// Set of items tag IDs
+			let itemTagIDsSet = new Set();
+			this.items.map(item => {
+				item.tags.map(tag => {
+					itemTagIDsSet.add(tag.id);
+				})
+				let isSuperSetResult = this.isSuperset(itemTagIDsSet, selectedIDsSet);
+				if(isSuperSetResult){
+					this.filteredItems.push(item);
+					console.log('Matched item', item.name)
+				}
+			})
+		}
 	}
 
 	// public filterTagsAnd(newTag: Tag):void {
