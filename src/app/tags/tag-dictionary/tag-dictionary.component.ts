@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tags } from '../tags-mock';
 
 @Component({
   selector: 'app-tag-dictionary',
@@ -7,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagDictionaryComponent implements OnInit {
 
-  
 
   constructor() { }
 
   ngOnInit() {
+    console.log('tags', tags);
   }
 
 }
