@@ -64,7 +64,7 @@ export class TagFilterComponent implements OnInit, OnDestroy {
 	// 		let tempTag = new Tag(index, tag.name);
 	// 		filteredArray.push(tempTag);
 	// 	})
-		
+
 	// 	return filteredArray
 	// }
 

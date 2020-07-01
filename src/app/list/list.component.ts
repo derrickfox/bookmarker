@@ -4,6 +4,7 @@ import { Tag } from '../tags/tag/tag.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsService } from '../tags/tagsService.service';
 import { ItemService } from './items/item/item.service';
+import { ListService } from '../list/list.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -18,27 +19,26 @@ export class ListComponent implements OnInit, OnDestroy {
 	selectedTags: Tag[] = [];
 	selectedTagsChanged = new Subject<Tag[]>();
 	selectedItems: Item[] = [];
+	newlySelectedTag: Tag;
 
 	constructor(
 		private itemService: ItemService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private tagsService: TagsService) { }
+		private tagsService: TagsService,
+		private listService: ListService) { }
 
 	ngOnInit() {
-		this.items = this.itemService.getItems();
-		// this.selectedTags = this.tagsService.getSelectedTags();
-
-		// this.tagsService.newTag.subscribe(newTag => {
-		// 	this.filterTagsAnd(newTag);		
-		// });
-
+		this.items = this.listService.getAllItems();
+		this.tagsService.newTag.subscribe(newTag => {
+			this.newlySelectedTag = newTag;
+		})
 		this.tagsService.selectedTagsChanged.subscribe(tags => {
 			if (tags.length === 0) {
 				this.filteredItems = [];
 			}
 			this.selectedTags = tags;
-			this.filterTagsAnd();		
+			this.filterTagsAnd();
 		});
 	}
 
@@ -61,34 +61,23 @@ export class ListComponent implements OnInit, OnDestroy {
 		return _intersection
 	}
 
-	public filterTagsAnd():void {
-		console.clear();
-		console.log(Date.now())
-		if(this.selectedTags.length === 0){
-			return;
-		}else{
-			// Clear filtered items
-			this.filteredItems = [];
-	
-			// Set of selected tag IDs
-			let selectedIDsSet = new Set();
-			this.selectedTags.map(tag => {
-				selectedIDsSet.add(tag.id);
-			})
-	
-			// Set of items tag IDs
-			let itemTagIDsSet = new Set();
-			this.items.map(item => {
-				item.tags.map(tag => {
-					itemTagIDsSet.add(tag.id);
-				})
-				let isSuperSetResult = this.isSuperset(itemTagIDsSet, selectedIDsSet);
-				if(isSuperSetResult){
-					this.filteredItems.push(item);
-					console.log('Matched item', item.name)
+	public filterTagsAnd(): void {
+		this.filteredItems = [];
+		let found = false;
+		let tempItems = this.listService.getAllItems();
+		tempItems.map(item => {
+			item.tags.map(tag => {
+				if (tag.id === this.newlySelectedTag.id) {
+					found = true;
 				}
 			})
-		}
+			if (found) {
+				console.log('found!', item);
+				this.filteredItems.push(item);
+
+				found = false;
+			}
+		})
 	}
 
 	// public filterTagsAnd(newTag: Tag):void {
@@ -130,7 +119,7 @@ export class ListComponent implements OnInit, OnDestroy {
 	// 	}
 	// }
 
-	public filterTagsOr():void {
+	public filterTagsOr(): void {
 		this.selectedTags.map(tag => {
 			this.items.map(item => {
 				if (!this.filteredItems.includes(item)) {
@@ -147,16 +136,16 @@ export class ListComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	public onItemClicked(item: Item):void {
+	public onItemClicked(item: Item): void {
 		this.selectedTags = this.tagsService.getSelectedTags();
 		this.selectedTagsChanged.next(this.selectedTags);
 	}
 
-	public onNewItem():void {
+	public onNewItem(): void {
 		this.router.navigate(['new'], { relativeTo: this.route })
 	}
 
-	public ngOnDestroy():void {
+	public ngOnDestroy(): void {
 	}
 
 }

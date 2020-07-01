@@ -8,11 +8,12 @@ import { tags } from '../tags-mock';
 })
 export class TagDictionaryComponent implements OnInit {
 
+  public tags = tags;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('tags', tags);
+    // console.log('tags', this.tags);
   }
 
 }

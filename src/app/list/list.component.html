@@ -1,23 +1,37 @@
-<div *ngIf="filteredItems.length === 0 && selectedTags.length === 0" class="col-xs-4" style="margin-left: 20px;">
-    <h1>Select a Tag</h1>
-    <!-- <app-item
-        *ngFor="let itemElement of items;"
-        [item]=itemElement
-        [index]="itemElement.id">
-    </app-item> -->
+<div
+  *ngIf="filteredItems.length === 0 && selectedTags.length === 0"
+  class="col-xs-4"
+  style="margin-left: 20px;"
+>
+  <h1>Select a Tag</h1>
+  <app-item
+    *ngFor="let itemElement of items"
+    [item]="itemElement"
+    [index]="itemElement.id"
+  >
+  </app-item>
 </div>
-<div *ngIf="selectedTags.length > 0 && filteredItems.length === 0" class="col-xs-4" style="margin-left: 20px;">
-    <h1>No Matches Found</h1>
+<div
+  *ngIf="selectedTags.length > 0 && filteredItems.length === 0"
+  class="col-xs-4"
+  style="margin-left: 20px;"
+>
+  <h1>No Matches Found</h1>
 </div>
-<div *ngIf="filteredItems.length > 0" class="col-xs-4" style="margin-left: 20px;">
-    <app-item
-        *ngFor="let itemElement of filteredItems;"
-        [item]=itemElement
-        [index]="itemElement.id">
-    </app-item>
+<div
+  *ngIf="filteredItems.length > 0"
+  class="col-xs-4"
+  style="margin-left: 20px;"
+>
+  <app-item
+    *ngFor="let itemElement of filteredItems"
+    [item]="itemElement"
+    [index]="itemElement.id"
+  >
+  </app-item>
 </div>
 <div>
-    <h3>filteredItems.length : {{filteredItems.length}}</h3>
-    <h3>selectedTags.length : {{selectedTags.length}}</h3>
-    <app-tag-dictionary></app-tag-dictionary>
+  <h3>filteredItems.length : {{ filteredItems.length }}</h3>
+  <h3>selectedTags.length : {{ selectedTags.length }}</h3>
+  <app-tag-dictionary></app-tag-dictionary>
 </div>
