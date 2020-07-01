@@ -14,6 +14,7 @@ export class TagsService {
     tags: Tag[] = []
     items: Item[]
     searchTerm: string
+    newlySelectedTag = new Subject<Tag>();
 
     constructor(private itemService: ItemService) {
         this.setAllTags();
@@ -33,6 +34,10 @@ export class TagsService {
     getAllTags() {
         this.tagsChanged.next(this.tags.slice());
         return this.tags.slice();
+    }
+
+    newTagSelected(tag: Tag) {
+        this.newlySelectedTag.next(tag);
     }
 
     addSelectedTag(tag: Tag) {
