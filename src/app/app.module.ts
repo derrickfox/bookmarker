@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app.routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"; 
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TagFilterComponent } from './tag-filter/tag-filter.component';
 import { ListComponent } from './list/list.component';
@@ -21,7 +21,6 @@ import { ListFilterDirective } from './list/list-filter.directive';
 import { TagDetailsComponent } from './tags/tag-details/tag-details.component';
 import { TagEditComponent } from './tags/tag-edit/tag-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TagDictionaryComponent } from './tags/tag-dictionary/tag-dictionary.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +39,11 @@ import { TagDictionaryComponent } from './tags/tag-dictionary/tag-dictionary.com
     TagDetailsComponent,
     TagEditComponent,
     HeaderComponent,
-    ListFilterDirective,
-    TagDictionaryComponent
+    ListFilterDirective
   ],
   imports: [
     BrowserModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
