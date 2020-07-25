@@ -16,8 +16,8 @@ export class ListComponent implements OnInit, OnDestroy {
 	items: Item[];
 	filteredItems: Item[] = [];
 	searchTerm: string;
-	selectedTags: Tag[] = [];
-	selectedTagsChanged = new Subject<Tag[]>();
+	selectedTags: Set<Tag>;
+	selectedTagsChanged = new Subject<Set<Tag>>();
 	selectedItems: Item[] = [];
 	newlySelectedTag: Tag;
 
@@ -29,15 +29,16 @@ export class ListComponent implements OnInit, OnDestroy {
 		private listService: ListService) { }
 
 	ngOnInit() {
+		this.selectedTags = new Set();
 		this.items = this.listService.getAllItems();
 		this.tagsService.newTag.subscribe(newTag => {
 			this.newlySelectedTag = newTag;
 		})
 		this.tagsService.selectedTagsChanged.subscribe(tags => {
-			if (tags.length === 0) {
+			if (tags.size === 0) {
 				this.filteredItems = [];
 			}
-			this.selectedTags = tags;
+			// this.selectedTags = tags;
 			this.filterTagsAnd();
 		});
 	}
@@ -53,16 +54,14 @@ export class ListComponent implements OnInit, OnDestroy {
 				}
 			})
 			if (found) {
-				console.log('found!', item);
 				this.filteredItems.push(item);
-
 				found = false;
 			}
 		})
 	}
 
 	public filterTagsOr(): void {
-		this.selectedTags.map(tag => {
+		this.selectedTags.forEach(tag => {
 			this.items.map(item => {
 				if (!this.filteredItems.includes(item)) {
 					item.tags.map(itemTag => {

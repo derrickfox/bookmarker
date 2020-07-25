@@ -1,5 +1,9 @@
+<p>filteredItems.length {{ filteredItems.length }}</p>
+<p>selectedTags.size {{ selectedTags.size }}</p>
+
+<!-- No tags selected -->
 <div
-  *ngIf="filteredItems.length === 0 && selectedTags.length === 0"
+  *ngIf="filteredItems.length === 0 && selectedTags.size === 0"
   class="col-xs-4"
   style="margin-left: 20px;"
 >
@@ -11,15 +15,19 @@
   >
   </app-item>
 </div>
+
+<!-- Tags selected, No items found -->
 <div
-  *ngIf="selectedTags.length > 0 && filteredItems.length === 0"
+  *ngIf="selectedTags.size > 0 && filteredItems.length === 0"
   class="col-xs-4"
   style="margin-left: 20px;"
 >
   <h1>No Matches Found</h1>
 </div>
+
+<!-- Tags selected, Items found -->
 <div
-  *ngIf="filteredItems.length > 0"
+  *ngIf="filteredItems.length > 0 && selectedTags.size > 0"
   class="col-xs-4"
   style="margin-left: 20px;"
 >

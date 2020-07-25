@@ -6,21 +6,21 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TagsService {
-    tagsChanged = new Subject<Tag[]>()
-    selectedTagsChanged = new Subject<Tag[]>()
-    searchTermChanged = new Subject<string>()
-    newTag = new Subject<Tag>();
-    selectedTags: Tag[] = []
-    tags: Tag[] = []
-    items: Item[]
-    searchTerm: string
-    newlySelectedTag = new Subject<Tag>();
+    public tagsChanged = new Subject<Tag[]>()
+    public selectedTagsChanged = new Subject<Set<Tag>>()
+    public searchTermChanged = new Subject<string>()
+    public newTag = new Subject<Tag>();
+    public selectedTags: Set<Tag>;
+    public tags: Tag[] = []
+    public items: Item[]
+    public searchTerm: string;
 
     constructor(private itemService: ItemService) {
         this.setAllTags();
+        this.selectedTags = new Set();
     }
 
-    setAllTags() {
+    public setAllTags(): void {
         let items = this.itemService.getItems();
         items.map(item => {
             item.tags.map(tag => {
@@ -31,33 +31,32 @@ export class TagsService {
         })
     }
 
-    getAllTags() {
+    public getAllTags(): Tag[] {
         this.tagsChanged.next(this.tags.slice());
         return this.tags.slice();
     }
 
-    newTagSelected(tag: Tag) {
-        this.newlySelectedTag.next(tag);
-    }
-
-    addSelectedTag(tag: Tag) {
-        this.selectedTags.push(tag);
+    public addSelectedTag(tag: Tag): void {
+        console.log('addSelectedTag')
+        this.selectedTags.add(tag);
         this.newTag.next(tag);
         this.selectedTagsChanged.next(this.selectedTags);
     }
 
-    getSelectedTags() {
-        this.selectedTagsChanged.next(this.selectedTags.slice());
-        return this.selectedTags.slice();
+    public getSelectedTags(): Set<Tag> {
+        this.selectedTagsChanged.next(this.selectedTags);
+        return this.selectedTags;
     }
 
-    getSearchTerm() {
+    public getSearchTerm(): void {
         return this.searchTermChanged.next(this.searchTerm);
     }
 
-    deleteTag(id: number) {
-        this.selectedTags.splice(id, 1);
-        this.selectedTagsChanged.next(this.selectedTags.slice());
+    public deleteTag(tag: Tag): void {
+        console.log('deleteTag')
+        this.selectedTags.delete(tag);
+        this.selectedTagsChanged.next(this.selectedTags);
+        this.newTag.next(tag);
     }
 
 }

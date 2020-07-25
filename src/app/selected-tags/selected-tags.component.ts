@@ -11,22 +11,23 @@ import { Subscription, Subject } from 'rxjs';
 })
 export class SelectedTagsComponent implements OnInit, OnDestroy {
 	selectedTagsSubject = new Subject<Tag[]>();
-	selectedTags: Tag[]
+	selectedTags: Set<Tag>;
 	tagSubscription: Subscription
 
 	constructor(private tagsService: TagsService, private listService: ListService, private itemService: ItemService) { }
 
 	ngOnInit() {
+		this.selectedTags = new Set();
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
 		})
 	}
 
-	onDelete(id: number) {
-		this.tagsService.deleteTag(id);
+	onDelete(tag: Tag) {
+		this.tagsService.deleteTag(tag);
 		this.tagSubscription = this.tagsService.selectedTagsChanged.subscribe(tags => {
 			this.selectedTags = tags;
-		})
+		});
 	}
 
 	ngOnDestroy() {
